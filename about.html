@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Apex One Property Management</title>
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0A1628;
+      --gold: #D4A017;
+      --royal: #1A4FBB;
+      --white: #FFFFFF;
+      --body: #111111;
+      --muted: #666;
+      --light-bg: #F9F8F6;
+      --badge-bg: #F0F4FF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--light-bg); color: var(--body); line-height: 1.6; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    @media (max-width: 768px) { .container { padding: 0 24px; } }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(10,22,40,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    @media (max-width: 768px) { nav { padding: 14px 24px; } }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-center {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .nav-center a { white-space: nowrap;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      background: transparent;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .nav-center a:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+    .nav-center a.active { color: var(--gold); border-color: var(--gold); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-btn { white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      background: transparent;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .pill-btn:hover { background: rgba(255,255,255,0.1); }
+
+    .pill-btn-gold {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--body);
+    }
+    .pill-btn-gold:hover { background: #E8B520; border-color: #E8B520; color: var(--body); }
+
+    @media (max-width: 900px) {
+      .nav-center { display: none; }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--navy);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 80%, rgba(212,160,23,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-badge {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: inline-block;
+      padding: 6px 18px;
+      border: 1px solid rgba(212,160,23,0.5);
+      border-radius: 100px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.1;
+      max-width: 800px;
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.65);
+      max-width: 620px;
+      line-height: 1.7;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 120px 24px 60px; min-height: 320px; }
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 15px; }
+    }
+
+    /* ─── SECTION HELPERS ─── */
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ─── MISSION SECTION ─── */
+    .mission-section {
+      background: var(--white);
+      padding: 100px 48px;
+    }
+
+    .mission-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .mission-left h2 {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--body);
+      margin-bottom: 28px;
+      line-height: 1.15;
+    }
+
+    .mission-left p {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.85;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .stat-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 28px 28px 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-left: 4px solid var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    }
+
+    .stat-card-num {
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      white-space: nowrap;
+    }
+
+    .stat-card-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--body);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .stat-card-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    @media (max-width: 900px) {
+      .mission-inner { grid-template-columns: 1fr; gap: 48px; }
+      .mission-left h2 { font-size: 32px; }
+    }
+
+    @media (max-width: 768px) {
+      .mission-section { padding: 60px 24px; }
+    }
+
+    /* ─── VALUES SECTION ─── */
+    .values-section {
+      background: var(--light-bg);
+      padding: 100px 48px;
+    }
+
+    .values-header {
+      max-width: 1100px;
+      margin: 0 auto 56px;
+    }
+
+    .values-header h2 {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--body);
+      margin-top: 8px;
+    }
+
+    .values-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .value-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    }
+
+    .value-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(212,160,23,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .value-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .value-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--body);
+    }
+
+    .value-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-family: 'Inter', sans-serif;
+    }
+
+    @media (max-width: 768px) {
+      .values-section { padding: 60px 24px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .values-header h2 { font-size: 28px; }
+    }
+
+    /* ─── TEAM SECTION ─── */
+    .team-section {
+      background: var(--white);
+      padding: 100px 48px;
+    }
+
+    .team-header {
+      max-width: 1100px;
+      margin: 0 auto 56px;
+    }
+
+    .team-header h2 {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--body);
+      margin-top: 8px;
+    }
+
+    .team-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .team-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px 32px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .team-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+    }
+
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 3px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .team-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--body);
+      margin-bottom: 4px;
+    }
+
+    .team-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .team-card-bio {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-family: 'Inter', sans-serif;
+    }
+
+    @media (max-width: 900px) { .team-grid { grid-template-columns: 1fr; max-width: 480px; } }
+    @media (max-width: 768px) { .team-section { padding: 60px 24px; } .team-header h2 { font-size: 28px; } }
+
+    /* ─── MAP SECTION ─── */
+    .map-section {
+      background: var(--navy);
+      padding: 72px 48px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .map-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .map-section h2 {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .map-section > .container > p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 36px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .map-visual {
+      max-width: 560px;
+      margin: 0 auto 36px;
+      position: relative;
+    }
+
+    .map-visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .map-visual svg {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .county-cities {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      border-top: 1px solid rgba(212,160,23,0.2);
+      padding-top: 32px;
+    }
+
+    .county-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-family: 'Inter', sans-serif;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(212,160,23,0.2);
+    }
+
+    .county-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .county-col ul li {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Inter', sans-serif;
+    }
+
+    @media (max-width: 768px) {
+      .map-section { padding: 60px 24px; }
+      .map-section h2 { font-size: 28px; }
+      .county-cities { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    /* ─── CTA BANNER ─── */
+    .cta-section {
+      background: var(--gold);
+      padding: 100px 48px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--body);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: rgba(0,0,0,0.6);
+      margin-bottom: 40px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn-navy {
+      padding: 14px 32px;
+      background: var(--navy);
+      color: var(--white);
+      border: 1px solid transparent;
+      border-radius: 100px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 15px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+    .cta-btn-navy:hover {
+      background: #0F2044;
+      transform: translateY(-2px);
+    }
+
+    .cta-btn-outline {
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      border-radius: 100px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 15px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+    .cta-btn-outline:hover {
+      background: rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .cta-section { padding: 60px 24px; }
+      .cta-section h2 { font-size: 32px; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy);
+      color: var(--white);
+      padding: 64px 48px 32px;
+    }
+
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 64px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 18px;
+      color: var(--white);
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .footer-col a:hover { color: var(--white); }
+
+    .footer-logo { text-align: center;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .footer-logo span { color: var(--gold); }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      font-family: 'Inter', sans-serif;
+    }
+
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 44px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (max-width: 768px) {
+      footer { padding: 48px 24px 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+    /* ── FOOTER TRUST BAR ── */
+    .trust-bar-footer { background: #0A1628; border-top: 1px solid rgba(212,160,23,0.2); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 14px 48px; }
+    .trust-bar-footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
+    .tbf-item { display: flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.6); white-space: nowrap; }
+    .tbf-item svg { flex-shrink: 0; }
+    .tbf-eho-img { height: 36px; width: auto; filter: invert(1); opacity: 0.85; flex-shrink: 0; }
+    .tbf-rentredi-img { height: 22px; width: 22px; border-radius: 5px; flex-shrink: 0; }
+    .tbf-licins-img { height: 26px; width: 26px; filter: invert(1); opacity: 0.85; flex-shrink: 0; }
+    .tbf-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .tbf-badge { font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; }
+    .tbf-brand { font-size: 13px; font-weight: 700; color: #D4A017; }
+    .tbf-logo-combo { background: #D4A017; border-radius: 8px; padding: 5px 10px; display: flex; align-items: center; gap: 8px; }
+    .tbf-logo-combo-sep { width: 1px; height: 20px; background: rgba(0,0,0,0.2); flex-shrink: 0; }
+    .tbf-logo { height: 22px; width: auto; display: block; }
+    @media (max-width: 768px) { .trust-bar-footer { padding: 14px 24px; } .trust-bar-footer-inner { gap: 14px; } .tbf-divider { display: none; } }
+
+    /* ─── SCROLL REVEAL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+
+    /* ─── NAV SHRINK ON SCROLL ─── */
+    nav {
+      transition: padding 0.35s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.35s ease,
+                  background 0.35s ease;
+    }
+    nav.nav-scrolled {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+
+    /* ─── PAGE TRANSITIONS ─── */
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pageFadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-8px); }
+    }
+    body {
+      animation: pageFadeIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    body.page-exit {
+      animation: pageFadeOut 0.28s ease forwards;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ NAV ════════════════════ -->
+<nav>
+  <a href="./index.html" class="nav-logo" style="display:flex;align-items:center;gap:14px;text-decoration:none;"><span style="display:block;width:120px;height:66px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);flex-shrink:0;"></span><span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.65);line-height:1.5;border-left:1px solid rgba(255,255,255,0.2);padding-left:14px;">Property<br>Management</span></a>
+  <div class="nav-center">
+    <a href="./index.html">Home</a>
+    <a href="./rentals.html">Available Units</a>
+    <a href="./about.html" class="active">About</a>
+    <a href="./services.html">Services</a>
+    <a href="./contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <button class="pill-btn" onclick="window.location.href='./index.html?portal=owner'">Owner Portal</button>
+    <button class="pill-btn pill-btn-gold" onclick="window.location.href='./index.html?portal=tenant'">Tenant Portal</button>
+  </div>
+</nav>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero">
+  <span class="hero-badge">Our Story</span>
+  <h1>Metro Detroit's Most Trusted Property Management Team</h1>
+  <p>Built on local expertise, driven by integrity, and committed to results for both owners and tenants</p>
+</section>
+
+<!-- ════════════════════ MISSION ════════════════════ -->
+<section class="mission-section">
+  <div class="mission-inner">
+    <div class="mission-left">
+      <div class="section-label">Who We Are</div>
+      <h2>Built for Detroit.<br>Built for You.</h2>
+      <p>Apex One Property Management was founded with a simple belief — that managing real estate should be straightforward, transparent, and professional for everyone involved. We serve Metro Detroit property owners and tenants with the same standard of care we use on our own homes and investments.</p>
+      <br>
+      <p>From tenant screening to maintenance coordination, rent collection to financial reporting, we handle every detail so you don't have to. Our team brings deep local market knowledge and hands-on real estate experience to every property we manage — giving owners confidence and tenants a place they're proud to call home.</p>
+    </div>
+
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-card-num">200+</div>
+        <div>
+          <div class="stat-card-label">Units Managed</div>
+          <div class="stat-card-sub">Across Metro Detroit</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num">98%</div>
+        <div>
+          <div class="stat-card-label">Occupancy Rate</div>
+          <div class="stat-card-sub">Portfolio average, year-round</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num">15+</div>
+        <div>
+          <div class="stat-card-label">Years Experience</div>
+          <div class="stat-card-sub">In Metro Detroit real estate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ VALUES ════════════════════ -->
+<section class="values-section">
+  <div class="values-header container">
+    <div class="section-label">What Drives Us</div>
+    <h2>The Apex One Standard</h2>
+  </div>
+  <div class="container">
+    <div class="values-grid">
+
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>Integrity</h3>
+        <p>We do what we say. Transparent reporting, honest communication, no surprises. You'll always know exactly where your property stands.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <h3>Local Expertise</h3>
+        <p>Deep roots in Metro Detroit. We know the neighborhoods, the market, and the people — giving you an edge that national firms simply can't match.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+        <h3>Responsiveness</h3>
+        <p>24/7 maintenance response. We treat every issue like it's our own property — because we know a fast fix protects your investment and your tenant.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+        </div>
+        <h3>Results</h3>
+        <p>High occupancy, low turnover, consistent income. We're measured by your outcomes — and we hold ourselves accountable to delivering them every month.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ TEAM ════════════════════ -->
+<section class="team-section">
+  <div class="team-header container">
+    <div class="section-label">Our Team</div>
+    <h2>The People Behind Apex One</h2>
+  </div>
+  <div class="container">
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="team-avatar">JA</div>
+        <h3>Justin A.</h3>
+        <div class="team-card-title">Founder</div>
+        <p class="team-card-bio">Founder with 15+ years of Metro Detroit real estate experience spanning construction, REO sales, and property management.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">JS</div>
+        <h3>Janet S.</h3>
+        <div class="team-card-title">Operations Lead</div>
+        <p class="team-card-bio">Overseeing day-to-day property operations, tenant relations, and vendor coordination across the entire portfolio.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">NA</div>
+        <h3>Nick A.</h3>
+        <div class="team-card-title">Maintenance Lead</div>
+        <p class="team-card-bio">Managing our network of licensed contractors and ensuring fast, reliable maintenance response for all properties.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">KS</div>
+        <h3>Kevin S.</h3>
+        <div class="team-card-title">Sales Lead</div>
+        <p class="team-card-bio">Driving owner acquisition and new property onboarding across Metro Detroit's tri-county market.</p>
+      </div>
+
+      <div class="team-card">
+        <div class="team-avatar">EW</div>
+        <h3>Elizabeth W.</h3>
+        <div class="team-card-title">Virtual Assistant</div>
+        <p class="team-card-bio">Supporting daily operations, communications, and administrative coordination to keep everything running smoothly.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ MAP ════════════════════ -->
+<section class="map-section">
+  <div class="container">
+    <h2>Where We Operate</h2>
+    <p>Proudly serving Macomb, Oakland, and Wayne counties across Metro Detroit</p>
+
+    <div class="map-visual">
+      <img src="./piks/tri county outline copy.png" alt="Tri-County Metro Detroit Map" style="max-width:600px; width:100%; display:block; margin:0 auto;">
+    </div>
+
+    <div class="county-cities">
+      <div class="county-col">
+        <h4>Oakland County</h4>
+        <ul>
+          <li>Ferndale</li>
+          <li>Hazel Park</li>
+          <li>Madison Heights</li>
+          <li>Oak Park</li>
+          <li>Royal Oak</li>
+        </ul>
+      </div>
+      <div class="county-col">
+        <h4>Macomb County</h4>
+        <ul>
+          <li>Center Line</li>
+          <li>Chesterfield Township</li>
+          <li>Clinton Township</li>
+          <li>Eastpointe</li>
+          <li>Fraser</li>
+          <li>Harrison Township</li>
+          <li>Macomb Township</li>
+          <li>Mount Clemens</li>
+          <li>New Baltimore</li>
+          <li>New Haven</li>
+          <li>Ray Township</li>
+          <li>Richmond</li>
+          <li>Roseville</li>
+          <li>Shelby Township</li>
+          <li>St. Clair Shores</li>
+          <li>Sterling Heights</li>
+          <li>Utica</li>
+          <li>Warren</li>
+        </ul>
+      </div>
+      <div class="county-col">
+        <h4>Wayne County</h4>
+        <ul>
+          <li>Dearborn</li>
+          <li>Dearborn Heights</li>
+          <li>Detroit</li>
+          <li>Grosse Pointe</li>
+          <li>Grosse Pointe Farms</li>
+          <li>Grosse Pointe Park</li>
+          <li>Grosse Pointe Shores</li>
+          <li>Grosse Pointe Woods</li>
+          <li>Hamtramck</li>
+          <li>Harper Woods</li>
+          <li>Highland Park</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ CTA BANNER ════════════════════ -->
+<section class="cta-section">
+  <h2>Ready to Work With Us?</h2>
+  <p>Whether you own property or need a place to call home — we're here to help.</p>
+  <div class="cta-buttons">
+    <a href="./index.html?portal=owner" class="cta-btn-navy">I'm an Owner</a>
+    <a href="./index.html?portal=tenant" class="cta-btn-outline">I'm a Tenant</a>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar-footer">
+  <div class="trust-bar-footer-inner">
+    <div class="tbf-item">
+      <img src="./piks/equal-housing-opportunity-logo-1200w.png" alt="Equal Housing Opportunity" class="tbf-eho-img">
+      <span>Equal Housing Opportunity</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <img src="./piks/lis insure logo.png" alt="Licensed & Insured" class="tbf-licins-img">
+      <span>Licensed &amp; Insured in Michigan</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <img src="./piks/rent redi logo.png" alt="RentRedi" class="tbf-rentredi-img">
+      <span class="tbf-badge">Powered by</span>
+      <span class="tbf-brand">RentRedi</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Serving Metro Detroit Since 2010</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <div class="tbf-logo-combo">
+        <img src="./piks/GMARLOGO.png" alt="GMAR" class="tbf-logo">
+        <div class="tbf-logo-combo-sep"></div>
+        <img src="./piks/NARLOGO.jpg" alt="NAR Realtor" class="tbf-logo">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><span style="display:block;width:120px;height:66px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);margin:0 auto;"></span></div>
+      <p class="footer-tagline">Metro Detroit's Property Management Experts. Serving Macomb, Oakland &amp; Wayne counties.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./rentals.html">Available Units</a></li>
+        <li><a href="./about.html">About</a></li>
+          <li><a href="./buy.html">We Buy Homes</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+13133800255">(313) 380-0255</a></li>
+        <li><a href="mailto:ApexPM@block-key.com">ApexPM@block-key.com</a></li>
+        <li>135 N. Old Woodward Ave Suite 200, Birmingham, MI 48009</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2022 Apex One. All rights reserved.</p>
+    <p><a href="./privacy.html" style="color:rgba(255,255,255,0.4)">Privacy</a> · <a href="./terms.html" style="color:rgba(255,255,255,0.4)">Terms</a></p>
+  </div>
+</footer>
+
+
+<script>
+(function() {
+  var SELECTORS = [
+    '.card', '.service-card', '.benefit-card', '.benefit-item',
+    '.team-card', '.value-card', '.stat-card', '.process-step',
+    '.acc-item', '.testimonial-card', '.listing-card',
+    '.owner-hero-card', '.mission-stat', '.buy-scenario',
+    '.contact-card', '.faq-section-header', '.content-wrap h2',
+    '.trust-stat', '.county-col', '.step'
+  ];
+
+  function applyReveal(root) {
+    root = root || document;
+    SELECTORS.forEach(function(sel) {
+      root.querySelectorAll(sel).forEach(function(el, i) {
+        if (el.closest('.hero') || el.closest('nav') || el.closest('footer') || el.classList.contains('reveal')) return;
+        el.classList.add('reveal');
+        // Stagger cards within the same parent
+        var parent = el.parentElement;
+        var tag = sel.replace(/^\./, '');
+        var siblings = parent ? Array.from(parent.querySelectorAll(':scope > .' + tag)) : [];
+        var idx = siblings.indexOf(el);
+        if (idx === 1) el.classList.add('reveal-d1');
+        else if (idx === 2) el.classList.add('reveal-d2');
+        else if (idx === 3) el.classList.add('reveal-d3');
+        else if (idx >= 4) el.classList.add('reveal-d4');
+      });
+    });
+    observe(root);
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+  function observe(root) {
+    (root || document).querySelectorAll('.reveal:not(.observed)').forEach(function(el) {
+      el.classList.add('observed');
+      observer.observe(el);
+    });
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { applyReveal(); });
+  } else {
+    applyReveal();
+  }
+
+  // Re-run when listings are dynamically injected (rentals page)
+  var grid = document.getElementById('listingsGrid');
+  if (grid) {
+    new MutationObserver(function() { applyReveal(grid); }).observe(grid, { childList: true });
+  }
+
+  // Expose for portal switching (index.html)
+  window.apexReveal = applyReveal;
+})();
+</script>
+
+
+<script>
+(function() {
+  var nav = document.querySelector('nav');
+  if (!nav) return;
+  var lastY = 0;
+  function onScroll() {
+    var y = window.scrollY;
+    if (y > 40) {
+      nav.classList.add('nav-scrolled');
+    } else {
+      nav.classList.remove('nav-scrolled');
+    }
+    lastY = y;
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+
+<script>
+(function() {
+  var current = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('nav a[href]').forEach(function(link) {
+    var href = link.getAttribute('href').split('/').pop().split('?')[0];
+    if (href === current) {
+      link.classList.add('active');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

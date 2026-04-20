@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Apex One Property Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0A1628;
+      --navy-mid:  #0F1F3D;
+      --gold:      #D4A017;
+      --gold-light:#E8B820;
+      --offwhite:  #F8F8F8;
+      --white:     #FFFFFF;
+      --text-dark: #1a1a1a;
+      --text-mid:  #4A5568;
+      --text-light:#718096;
+      --radius-card: 20px;
+      --shadow-card: 0 2px 16px rgba(10,22,40,.07);
+      --shadow-hover: 0 8px 32px rgba(10,22,40,.13);
+      --t: .2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-dark); background: var(--white); -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    .owner-nav {
+      position: sticky; top: 0; z-index: 999;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 68px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-logo { font-size: 20px; font-weight: 800; color: var(--white); letter-spacing: -.01em; cursor: pointer; user-select: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .pill-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 8px 18px; border-radius: 999px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; font-weight: 600;
+      cursor: pointer; border: 1.5px solid rgba(255,255,255,.35);
+      background: transparent; color: var(--white);
+      transition: var(--t); white-space: nowrap;
+    }
+    .pill-btn:hover { border-color: rgba(255,255,255,.7); background: rgba(255,255,255,.07); }
+    .pill-btn.active { border-color: var(--gold); color: var(--gold); }
+    .pill-btn-gold { background: var(--gold) !important; border-color: var(--gold) !important; color: var(--navy) !important; font-weight: 700; }
+    .pill-btn-gold:hover { background: var(--gold-light) !important; border-color: var(--gold-light) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy); min-height: 420px;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 50% 110%, rgba(26,79,187,.22) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-inner { position: relative; z-index: 1; padding: 80px 24px; max-width: 780px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex; align-items: center;
+      border: 1.5px solid var(--gold); color: var(--gold);
+      font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      padding: 7px 18px; border-radius: 999px; margin-bottom: 24px;
+    }
+    .hero h1 { font-size: clamp(34px, 5vw, 58px); font-weight: 800; color: var(--white); line-height: 1.1; letter-spacing: -.02em; margin-bottom: 20px; }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,.6); max-width: 520px; margin: 0 auto 36px; line-height: 1.65; }
+    .btn-gold-hero {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 15px 32px; border-radius: 999px;
+      background: var(--gold); color: var(--navy);
+      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 15px;
+      border: none; cursor: pointer; transition: var(--t);
+    }
+    .btn-gold-hero:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,160,23,.3); }
+
+    /* ── SECTION LABEL ── */
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: block; }
+
+    /* ── SERVICES GRID ── */
+    .services-overview { background: var(--white); padding: 90px 40px; }
+    .services-overview-inner { max-width: 1180px; margin: 0 auto; }
+    .services-hdr { margin-bottom: 48px; }
+    .services-hdr h2 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 800; color: var(--text-dark); letter-spacing: -.02em; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .service-card {
+      background: var(--white); border: 1px solid rgba(0,0,0,.07);
+      border-radius: var(--radius-card); padding: 32px 28px;
+      box-shadow: var(--shadow-card); transition: transform var(--t), box-shadow var(--t);
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .service-icon { width: 48px; height: 48px; background: rgba(212,160,23,.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .service-icon svg { width: 22px; height: 22px; }
+    .service-card h3 { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 10px; }
+    .service-card p { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+
+    /* ── HOW WE WORK ── */
+    .how-we-work { background: var(--offwhite); padding: 90px 40px; }
+    .how-inner { max-width: 1180px; margin: 0 auto; }
+    .how-hdr { margin-bottom: 56px; }
+    .how-hdr h2 { font-size: clamp(26px, 3vw, 42px); font-weight: 800; color: var(--text-dark); letter-spacing: -.02em; }
+    .steps-row { display: grid; grid-template-columns: repeat(5, 1fr); position: relative; }
+    .steps-row::before {
+      content: ''; position: absolute;
+      top: 37px; left: calc(10% + 18px); right: calc(10% + 18px);
+      height: 2px; background: var(--gold); opacity: .35; z-index: 0;
+    }
+    .step { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 10px; }
+    .step-circle {
+      width: 76px; height: 76px; background: var(--navy); border-radius: 50%;
+      border: 2.5px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; flex-shrink: 0;
+    }
+    .step-num { font-size: 20px; font-weight: 800; color: var(--gold); }
+    .step h3 { font-size: 14.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+    .step p { font-size: 13px; color: var(--text-light); line-height: 1.65; }
+
+    /* ── OWNER BENEFITS ── */
+    .owner-benefits { background: var(--white); padding: 90px 40px; }
+    .benefits-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: center; }
+    .benefits-left h2 { font-size: clamp(26px, 3vw, 40px); font-weight: 800; color: var(--text-dark); letter-spacing: -.02em; margin-bottom: 32px; }
+    .benefits-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .benefits-list li { display: flex; align-items: flex-start; gap: 13px; }
+    .chk { flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; }
+    .chk svg { width: 22px; height: 22px; }
+    .item-text { font-size: 15px; color: var(--text-mid); line-height: 1.55; }
+    .item-text strong { color: var(--text-dark); font-weight: 700; }
+    .cta-card { background: var(--navy); border: 2px solid var(--gold); border-radius: var(--radius-card); padding: 44px 36px; text-align: center; }
+    .cta-card h3 { font-size: 24px; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .cta-card > p { font-size: 14.5px; color: rgba(255,255,255,.6); line-height: 1.6; margin-bottom: 28px; }
+    .btn-gold { display: inline-flex; align-items: center; padding: 13px 28px; border-radius: 999px; background: var(--gold); color: var(--navy); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14.5px; border: none; cursor: pointer; transition: var(--t); }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .phone-line { margin-top: 14px; font-size: 14px; color: rgba(255,255,255,.45); }
+
+    /* ── PRICING ── */
+    .pricing { background: var(--offwhite); padding: 90px 40px; }
+    .pricing-inner { max-width: 1180px; margin: 0 auto; }
+    .pricing-hdr { text-align: center; margin-bottom: 48px; }
+    .pricing-hdr h2 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 800; color: var(--text-dark); letter-spacing: -.02em; margin-bottom: 12px; }
+    .pricing-hdr p { font-size: 15px; color: var(--text-mid); }
+    .pricing-card-wrap { max-width: 740px; margin: 0 auto; }
+    .pricing-card { background: var(--white); border: 2px solid var(--gold); border-radius: var(--radius-card); padding: 52px 56px; box-shadow: var(--shadow-hover); }
+    .pricing-badge { display: inline-flex; background: rgba(212,160,23,.1); border: 1.5px solid rgba(212,160,23,.4); color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 6px 16px; border-radius: 999px; margin-bottom: 28px; }
+    .pricing-fee { margin-bottom: 6px; }
+    .pricing-fee .pct { font-size: 44px; font-weight: 800; color: var(--gold); letter-spacing: -.02em; }
+    .pricing-fee .rest { font-size: 28px; font-weight: 800; color: var(--text-dark); letter-spacing: -.02em; }
+    .pricing-sub { font-size: 14px; color: var(--text-light); margin-bottom: 28px; }
+    .pricing-divider { height: 1px; background: rgba(0,0,0,.07); margin-bottom: 28px; }
+    .pricing-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px; margin-bottom: 36px; }
+    .pricing-feature { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-mid); }
+    .pricing-feature svg { flex-shrink: 0; width: 15px; height: 15px; }
+    .pricing-cta { text-align: center; }
+    .pricing-disclaimer { margin-top: 18px; font-size: 12.5px; color: var(--text-light); text-align: center; }
+
+    /* ── FAQ TEASER ── */
+    .faq-teaser { background: var(--navy); padding: 80px 40px; text-align: center; }
+    .faq-teaser h2 { font-size: clamp(24px, 3vw, 38px); font-weight: 800; color: var(--white); letter-spacing: -.02em; margin-bottom: 14px; }
+    .faq-teaser p { font-size: 15px; color: rgba(255,255,255,.55); max-width: 460px; margin: 0 auto 32px; line-height: 1.65; }
+    .faq-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .btn-outline-white { display: inline-flex; align-items: center; padding: 13px 28px; border-radius: 999px; background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,.5); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14.5px; cursor: pointer; transition: var(--t); }
+    .btn-outline-white:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { background: var(--gold); padding: 80px 40px; text-align: center; }
+    .cta-banner h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 800; color: var(--navy); letter-spacing: -.02em; margin-bottom: 12px; }
+    .cta-banner p { font-size: 16px; color: rgba(10,22,40,.65); max-width: 460px; margin: 0 auto 32px; line-height: 1.6; }
+    .btn-navy { display: inline-flex; align-items: center; padding: 15px 32px; border-radius: 999px; background: var(--navy); color: var(--white); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 15px; border: none; cursor: pointer; transition: var(--t); }
+    .btn-navy:hover { background: var(--navy-mid); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); padding: 56px 40px 28px; border-top: 1px solid rgba(255,255,255,.06); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1180px; margin: 0 auto 40px; }
+    .footer-logo { text-align: center;
+      text-align: center; font-size: 18px; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .footer-logo span { color: var(--gold); }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.65; max-width: 240px; text-align: center; margin: 0 auto; }
+    .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col ul li, .footer-col ul li a { font-size: 13px; color: rgba(255,255,255,.5); transition: color var(--t); }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom { max-width: 1180px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,.07); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom p, .footer-bottom a { font-size: 12.5px; color: rgba(255,255,255,.3); }
+    .footer-bottom a:hover { color: rgba(255,255,255,.6); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .owner-nav { padding: 0 20px; }
+      .nav-right { gap: 6px; }
+      .pill-btn { padding: 7px 12px; font-size: 12px; }
+      .services-overview, .how-we-work, .owner-benefits, .pricing, .faq-teaser, .cta-banner { padding-left: 20px; padding-right: 20px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .steps-row { grid-template-columns: 1fr; gap: 28px; }
+      .steps-row::before { display: none; }
+      .step { flex-direction: row; text-align: left; gap: 18px; }
+      .step-circle { margin-bottom: 0; }
+      .benefits-inner { grid-template-columns: 1fr; }
+      .pricing-card { padding: 36px 28px; }
+      .pricing-features { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .hero-badge  { animation: fadeUp .45s ease both; }
+    .hero h1     { animation: fadeUp .5s .08s ease both; }
+    .hero-sub    { animation: fadeUp .5s .16s ease both; }
+    .btn-gold-hero { animation: fadeUp .5s .24s ease both; }
+    /* ── FOOTER TRUST BAR ── */
+    .trust-bar-footer { background: #0A1628; border-top: 1px solid rgba(212,160,23,0.2); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 14px 48px; }
+    .trust-bar-footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
+    .tbf-item { display: flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.6); white-space: nowrap; }
+    .tbf-item svg { flex-shrink: 0; }
+    .tbf-eho-img { height: 36px; width: auto; filter: invert(1); opacity: 0.85; flex-shrink: 0; }
+    .tbf-rentredi-img { height: 22px; width: 22px; border-radius: 5px; flex-shrink: 0; }
+    .tbf-licins-img { height: 26px; width: 26px; filter: invert(1); opacity: 0.85; flex-shrink: 0; }
+    .tbf-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .tbf-badge { font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; }
+    .tbf-brand { font-size: 13px; font-weight: 700; color: #D4A017; }
+    .tbf-logo-combo { background: #D4A017; border-radius: 8px; padding: 5px 10px; display: flex; align-items: center; gap: 8px; }
+    .tbf-logo-combo-sep { width: 1px; height: 20px; background: rgba(0,0,0,0.2); flex-shrink: 0; }
+    .tbf-logo { height: 22px; width: auto; display: block; }
+    @media (max-width: 768px) { .trust-bar-footer { padding: 14px 24px; } .trust-bar-footer-inner { gap: 14px; } .tbf-divider { display: none; } }
+
+    /* ─── SCROLL REVEAL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+
+    /* ─── NAV SHRINK ON SCROLL ─── */
+    nav {
+      transition: padding 0.35s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.35s ease,
+                  background 0.35s ease;
+    }
+    nav.nav-scrolled {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+
+    /* ─── PAGE TRANSITIONS ─── */
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pageFadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-8px); }
+    }
+    body {
+      animation: pageFadeIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    body.page-exit {
+      animation: pageFadeOut 0.28s ease forwards;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="owner-nav">
+  <div class="nav-logo" onclick="goHome()" style="display:flex;align-items:center;gap:14px;cursor:pointer;"><span style="display:block;width:120px;height:66px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);flex-shrink:0;"></span><span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.65);line-height:1.5;border-left:1px solid rgba(255,255,255,0.2);padding-left:14px;">Property<br>Management</span></div>
+  <div class="nav-right">
+    <a href="./about.html" class="pill-btn">About</a>
+    <a href="./services.html" class="pill-btn active">Services</a>
+    <a href="./contact.html" class="pill-btn">Contact</a>
+    <button class="pill-btn" onclick="selectPath('tenant')">Switch to Tenant Portal</button>
+    <button class="pill-btn pill-btn-gold">Owner Portal</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">What We Offer</div>
+    <h1>Full-Service Property Management for Metro Detroit</h1>
+    <p class="hero-sub">From finding tenants to collecting rent, we handle every detail so you can enjoy truly passive income</p>
+    <a href="./contact.html" class="btn-gold-hero">
+      Get a Free Rental Analysis
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="services-overview">
+  <div class="services-overview-inner">
+    <div class="services-hdr">
+      <span class="section-label">Our Services</span>
+      <h2>Everything Under One Roof</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Tenant Screening &amp; Placement</h3>
+        <p>Comprehensive background checks including credit, criminal, eviction history, employment verification, and rental references. We only place tenants we'd be comfortable with in our own properties.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+        <h3>Rent Collection</h3>
+        <p>Online rent collection through our tenant portal with autopay, late fee automation, and payment reminders. Owners receive disbursements within 5–7 business days of collection.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <h3>Maintenance Coordination</h3>
+        <p>24/7 maintenance request handling via our online portal. We coordinate with licensed, vetted contractors and get owner approval for repairs above agreed thresholds.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <h3>Financial Reporting</h3>
+        <p>Detailed monthly financial statements including income, expenses, and net cash flow. Full transparency into every dollar in and out of your property.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <h3>Leasing &amp; Lease Renewals</h3>
+        <p>Professional lease preparation, e-signature, and secure document storage. We proactively reach out to tenants 60–90 days before expiration to minimize vacancy.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Compliance &amp; Legal</h3>
+        <p>We stay current on Michigan landlord-tenant law, local rental licensing requirements, fair housing regulations, and Section 8 compliance so you don't have to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="how-we-work">
+  <div class="how-inner">
+    <div class="how-hdr">
+      <span class="section-label">The Process</span>
+      <h2>From Onboarding to Income in 5 Steps</h2>
+    </div>
+    <div class="steps-row">
+      <div class="step"><div class="step-circle"><span class="step-num">1</span></div><div><h3>Free Rental Analysis</h3><p>We evaluate your property, review comparable rents, and provide a detailed market analysis — no obligation.</p></div></div>
+      <div class="step"><div class="step-circle"><span class="step-num">2</span></div><div><h3>Management Agreement</h3><p>We walk you through our simple management agreement, answer every question, and get you signed up within days.</p></div></div>
+      <div class="step"><div class="step-circle"><span class="step-num">3</span></div><div><h3>Property Prep</h3><p>We coordinate any needed repairs or improvements to get your property rent-ready and listed at the right price.</p></div></div>
+      <div class="step"><div class="step-circle"><span class="step-num">4</span></div><div><h3>Tenant Placement</h3><p>We market your property, screen applicants thoroughly, and place a qualified tenant — typically within 2–3 weeks.</p></div></div>
+      <div class="step"><div class="step-circle"><span class="step-num">5</span></div><div><h3>Ongoing Management</h3><p>From day one of tenancy, we handle everything. You collect income. We handle the rest.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OWNER BENEFITS -->
+<section class="owner-benefits">
+  <div class="benefits-inner">
+    <div class="benefits-left">
+      <h2>Why Owners Choose Apex One</h2>
+      <ul class="benefits-list">
+        <li><div class="chk"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(212,160,23,.12)"/><path d="M7 12.5l3.5 3.5 6.5-7" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="item-text"><strong>No surprise fees</strong> — flat, transparent management fee</div></li>
+        <li><div class="chk"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(212,160,23,.12)"/><path d="M7 12.5l3.5 3.5 6.5-7" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="item-text"><strong>Licensed and insured</strong> — fully compliant operations</div></li>
+        <li><div class="chk"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(212,160,23,.12)"/><path d="M7 12.5l3.5 3.5 6.5-7" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="item-text"><strong>Local market experts</strong> — deep Metro Detroit knowledge</div></li>
+        <li><div class="chk"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(212,160,23,.12)"/><path d="M7 12.5l3.5 3.5 6.5-7" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="item-text"><strong>Tenant credit reporting</strong> — reduces late payments</div></li>
+        <li><div class="chk"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(212,160,23,.12)"/><path d="M7 12.5l3.5 3.5 6.5-7" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="item-text"><strong>Detailed monthly reporting</strong> — full financial visibility</div></li>
+      </ul>
+    </div>
+    <div class="cta-card">
+      <h3>Ready to Get Started?</h3>
+      <p>Get your free rental analysis today. No obligation, no pressure. We'll show you exactly what your property can earn.</p>
+      <a href="./contact.html" class="btn-gold">Request Free Analysis</a>
+      <p class="phone-line">(313) 380-0255</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-hdr">
+      <span class="section-label">Pricing</span>
+      <h2>Simple, Transparent Pricing</h2>
+      <p>No hidden fees. No surprises. Just straightforward property management.</p>
+    </div>
+    <div class="pricing-card-wrap">
+      <div class="pricing-card">
+        <div class="pricing-badge">Full Service</div>
+        <div class="pricing-fee"><span class="pct">10%</span><span class="rest"> of Monthly Rent Collected</span></div>
+        <p class="pricing-sub">All-inclusive management fee</p>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tenant screening &amp; placement</div>
+          <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Rent collection &amp; disbursement</div>
+          <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Maintenance coordination</div>
+          <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monthly financial reporting</div>
+          <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Lease preparation &amp; renewals</div>
+          <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Legal &amp; compliance oversight</div>
+          <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>24/7 maintenance response</div>
+          <div class="pricing-feature"><svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Owner portal access</div>
+        </div>
+        <div class="pricing-cta"><a href="./contact.html" class="btn-gold">Get Started</a></div>
+        <p class="pricing-disclaimer">Leasing fee of one month's rent applies for new tenant placement. All fees disclosed upfront.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ TEASER -->
+<section class="faq-teaser">
+  <h2>Have Questions About Our Services?</h2>
+  <p>Check out our full FAQ or reach out directly — we're happy to walk you through everything.</p>
+  <div class="faq-btns">
+    <a href="./faq.html" class="btn-gold">View Full FAQ</a>
+    <a href="./contact.html" class="btn-outline-white">Contact Us</a>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Let's Manage Your Property</h2>
+  <p>Join Metro Detroit owners who trust Apex One to protect and grow their investment.</p>
+  <a href="./contact.html" class="btn-navy">Get Free Rental Analysis</a>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar-footer">
+  <div class="trust-bar-footer-inner">
+    <div class="tbf-item">
+      <img src="./piks/equal-housing-opportunity-logo-1200w.png" alt="Equal Housing Opportunity" class="tbf-eho-img">
+      <span>Equal Housing Opportunity</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <img src="./piks/lis insure logo.png" alt="Licensed & Insured" class="tbf-licins-img">
+      <span>Licensed &amp; Insured in Michigan</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <img src="./piks/rent redi logo.png" alt="RentRedi" class="tbf-rentredi-img">
+      <span class="tbf-badge">Powered by</span>
+      <span class="tbf-brand">RentRedi</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Serving Metro Detroit Since 2010</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <div class="tbf-logo-combo">
+        <img src="./piks/GMARLOGO.png" alt="GMAR" class="tbf-logo">
+        <div class="tbf-logo-combo-sep"></div>
+        <img src="./piks/NARLOGO.jpg" alt="NAR Realtor" class="tbf-logo">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><span style="display:block;width:120px;height:66px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);margin:0 auto;"></span></div>
+      <p class="footer-tagline">Metro Detroit's Property Management Experts. Serving Macomb, Oakland &amp; Wayne counties.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="./about.html">About</a></li>
+          <li><a href="./buy.html">We Buy Homes</a></li>
+        <li><a href="./services.html">Services</a></li>
+        <li><a href="./faq.html">FAQ</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+13133800255">(313) 380-0255</a></li>
+        <li><a href="mailto:ApexPM@block-key.com">ApexPM@block-key.com</a></li>
+        <li>135 N. Old Woodward Ave Suite 200, Birmingham, MI 48009</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2022 Apex One. All rights reserved.</p>
+    <p><a href="./privacy.html" style="color:rgba(255,255,255,0.75)">Privacy</a> · <a href="./terms.html" style="color:rgba(255,255,255,0.75)">Terms</a></p>
+  </div>
+</footer>
+
+<script>
+  function goHome() { window.location.href = './index.html'; }
+  function selectPath(path) {
+    if (path === 'tenant') window.location.href = './index.html?portal=tenant';
+    if (path === 'owner')  window.location.href = './index.html?portal=owner';
+  }
+
+  // Scroll-triggered fade-in
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }, i * 55);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .step, .pricing-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity .35s ease, transform .35s ease';
+    obs.observe(el);
+  });
+</script>
+
+<script>
+(function() {
+  var SELECTORS = [
+    '.card', '.service-card', '.benefit-card', '.benefit-item',
+    '.team-card', '.value-card', '.stat-card', '.process-step',
+    '.acc-item', '.testimonial-card', '.listing-card',
+    '.owner-hero-card', '.mission-stat', '.buy-scenario',
+    '.contact-card', '.faq-section-header', '.content-wrap h2',
+    '.trust-stat', '.county-col', '.step'
+  ];
+
+  function applyReveal(root) {
+    root = root || document;
+    SELECTORS.forEach(function(sel) {
+      root.querySelectorAll(sel).forEach(function(el, i) {
+        if (el.closest('.hero') || el.closest('nav') || el.closest('footer') || el.classList.contains('reveal')) return;
+        el.classList.add('reveal');
+        // Stagger cards within the same parent
+        var parent = el.parentElement;
+        var tag = sel.replace(/^\./, '');
+        var siblings = parent ? Array.from(parent.querySelectorAll(':scope > .' + tag)) : [];
+        var idx = siblings.indexOf(el);
+        if (idx === 1) el.classList.add('reveal-d1');
+        else if (idx === 2) el.classList.add('reveal-d2');
+        else if (idx === 3) el.classList.add('reveal-d3');
+        else if (idx >= 4) el.classList.add('reveal-d4');
+      });
+    });
+    observe(root);
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+  function observe(root) {
+    (root || document).querySelectorAll('.reveal:not(.observed)').forEach(function(el) {
+      el.classList.add('observed');
+      observer.observe(el);
+    });
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { applyReveal(); });
+  } else {
+    applyReveal();
+  }
+
+  // Re-run when listings are dynamically injected (rentals page)
+  var grid = document.getElementById('listingsGrid');
+  if (grid) {
+    new MutationObserver(function() { applyReveal(grid); }).observe(grid, { childList: true });
+  }
+
+  // Expose for portal switching (index.html)
+  window.apexReveal = applyReveal;
+})();
+</script>
+
+
+<script>
+(function() {
+  var nav = document.querySelector('nav');
+  if (!nav) return;
+  var lastY = 0;
+  function onScroll() {
+    var y = window.scrollY;
+    if (y > 40) {
+      nav.classList.add('nav-scrolled');
+    } else {
+      nav.classList.remove('nav-scrolled');
+    }
+    lastY = y;
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+
+<script>
+(function() {
+  var current = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('nav a[href]').forEach(function(link) {
+    var href = link.getAttribute('href').split('/').pop().split('?')[0];
+    if (href === current) {
+      link.classList.add('active');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Use — Apex One Property Management</title>
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0A1628;
+      --gold: #D4A017;
+      --royal: #1A4FBB;
+      --white: #FFFFFF;
+      --body: #111111;
+      --muted: #666;
+      --light-bg: #F9F8F6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--light-bg); color: var(--body); line-height: 1.6; }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    @media (max-width: 768px) { .container { padding: 0 24px; } }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(10,22,40,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    @media (max-width: 768px) { nav { padding: 14px 24px; } }
+
+    .nav-center {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .nav-center a { white-space: nowrap;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .nav-center a:hover { background: rgba(255,255,255,0.1); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pill-btn { white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      background: transparent;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .pill-btn:hover { background: rgba(255,255,255,0.1); }
+    .pill-btn-gold { background: var(--gold); border-color: var(--gold); color: var(--body); }
+    .pill-btn-gold:hover { background: #E8B520; border-color: #E8B520; color: var(--body); }
+
+    @media (max-width: 900px) { .nav-center { display: none; } }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--navy);
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 130px 48px 70px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 80%, rgba(212,160,23,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-badge {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: inline-block;
+      padding: 6px 18px;
+      border: 1px solid rgba(212,160,23,0.5);
+      border-radius: 100px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      position: relative;
+      z-index: 1;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ─── CONTENT ─── */
+    .content-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 80px 48px 100px;
+    }
+    @media (max-width: 768px) { .content-wrap { padding: 60px 24px 80px; } }
+
+    .content-wrap h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--body);
+      margin-top: 52px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(212,160,23,0.3);
+    }
+    .content-wrap h2:first-of-type { margin-top: 0; }
+
+    .content-wrap p {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+
+    .content-wrap ul {
+      margin: 10px 0 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .content-wrap ul li {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    .last-updated {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: rgba(0,0,0,0.05);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 48px;
+    }
+
+    .contact-box {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 52px;
+    }
+    .contact-box p {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0;
+    }
+    .contact-box a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .contact-box a:hover { text-decoration: underline; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy);
+      padding: 64px 48px 32px;
+    }
+    @media (max-width: 768px) { footer { padding: 48px 24px 28px; } }
+
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 44px; } }
+
+    .footer-logo {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .footer-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+      max-width: 220px;
+      text-align: center;
+      margin: 0 auto;
+    }
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 18px;
+      font-family: 'Inter', sans-serif;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-col li { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 28px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+    }
+    @media (max-width: 768px) { .footer-bottom { flex-direction: column; gap: 12px; text-align: center; } }
+
+    /* ─── TRUST BAR FOOTER ─── */
+    .trust-bar-footer { background: #0A1628; border-top: 1px solid rgba(212,160,23,0.2); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 14px 48px; }
+    .trust-bar-footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
+    .tbf-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif; font-weight: 500; }
+    .tbf-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.12); }
+    .tbf-badge { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); }
+    .tbf-brand { font-weight: 700; color: #4CAF50; font-size: 13px; }
+    .tbf-logo { height: 22px; width: auto; object-fit: contain; opacity: 0.75; }
+    .tbf-licins-img { height: 22px; width: auto; object-fit: contain; opacity: 0.75; }
+    .tbf-rentredi-img { height: 18px; width: auto; object-fit: contain; opacity: 0.85; }
+    .tbf-logo-combo { display: flex; align-items: center; gap: 10px; }
+    .tbf-logo-combo-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.2); }
+    @media (max-width: 768px) { .trust-bar-footer { padding: 14px 24px; } .trust-bar-footer-inner { gap: 14px; } .tbf-divider { display: none; } }
+
+    /* ─── SCROLL REVEAL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+
+    /* ─── NAV SHRINK ON SCROLL ─── */
+    nav {
+      transition: padding 0.35s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.35s ease,
+                  background 0.35s ease;
+    }
+    nav.nav-scrolled {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+
+    /* ─── PAGE TRANSITIONS ─── */
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pageFadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-8px); }
+    }
+    body {
+      animation: pageFadeIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    body.page-exit {
+      animation: pageFadeOut 0.28s ease forwards;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ NAV ════════════════════ -->
+<nav>
+  <a href="./index.html" style="display:flex;align-items:center;gap:14px;text-decoration:none;"><span style="display:block;width:120px;height:66px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);flex-shrink:0;"></span><span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.65);line-height:1.5;border-left:1px solid rgba(255,255,255,0.2);padding-left:14px;">Property<br>Management</span></a>
+  <div class="nav-center">
+    <a href="./about.html">About</a>
+    <a href="./services.html">Services</a>
+    <a href="./faq.html">FAQ</a>
+    <a href="./contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <a href="./contact.html" class="pill-btn pill-btn-gold">Get Started</a>
+  </div>
+</nav>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero">
+  <span class="hero-badge">Legal</span>
+  <h1>Terms of Use</h1>
+  <p>The rules and limitations that govern your use of this website.</p>
+</section>
+
+<!-- ════════════════════ CONTENT ════════════════════ -->
+<div class="content-wrap">
+
+  <span class="last-updated">Last Updated: April 18, 2026</span>
+
+  <h2>Acceptance of Terms</h2>
+  <p>By accessing or using the Apex One LLC website (the "Site"), you agree to be bound by these Terms of Use. If you do not agree, please do not use this Site. These terms apply to all visitors, whether you are a property owner, prospective tenant, or general visitor.</p>
+
+  <h2>About This Site</h2>
+  <p>This website is operated by Apex One LLC, a property management company based in Michigan. The Site is provided for informational purposes only. Nothing on this Site constitutes a legally binding agreement, contract, or guarantee of services unless a separate written agreement has been signed between you and Apex One LLC.</p>
+
+  <h2>Use of This Site</h2>
+  <p>You agree to use this Site only for lawful purposes. You may not:</p>
+  <ul>
+    <li>Use the Site in any way that violates applicable federal, state, or local law</li>
+    <li>Submit false, misleading, or fraudulent information through any form on this Site</li>
+    <li>Attempt to gain unauthorized access to any portion of the Site or its underlying systems</li>
+    <li>Use automated tools (bots, scrapers, crawlers) to collect data from the Site without our written permission</li>
+    <li>Reproduce, copy, or redistribute Site content for commercial purposes without our consent</li>
+  </ul>
+
+  <h2>Intellectual Property</h2>
+  <p>All content on this Site — including text, images, logos, graphics, and design — is the property of Apex One LLC or its licensors and is protected under applicable copyright and trademark law. You may not reproduce or distribute any content from this Site without our express written permission.</p>
+
+  <h2>No Warranties</h2>
+  <p>This Site is provided on an "as is" and "as available" basis. Apex One LLC makes no warranties, expressed or implied, regarding the accuracy, completeness, or availability of any content on this Site. We do not guarantee that the Site will be free of errors, interruptions, or security vulnerabilities.</p>
+  <p>Information on this Site — including pricing, availability, and service descriptions — is subject to change without notice and should not be relied upon as a final representation of our services.</p>
+
+  <h2>Limitation of Liability</h2>
+  <p>To the fullest extent permitted by Michigan law, Apex One LLC shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of — or inability to use — this Site or any content on it. This includes, but is not limited to, loss of data, lost profits, or business interruption.</p>
+
+  <h2>Third-Party Links</h2>
+  <p>This Site may contain links to external websites, including our property management software provider (RentRedi) and other service partners. These links are provided for convenience only. Apex One LLC does not control those sites and is not responsible for their content, privacy practices, or terms. Visiting a third-party site is at your own risk.</p>
+
+  <h2>Forms and Submissions</h2>
+  <p>When you submit a form on this Site — whether a contact request, cash offer inquiry, or rental waitlist — you acknowledge that submitting information does not create any contractual obligation on the part of Apex One LLC. We will make reasonable efforts to respond to inquiries but cannot guarantee response times or outcomes.</p>
+
+  <h2>Governing Law</h2>
+  <p>These Terms of Use are governed by the laws of the State of Michigan, without regard to its conflict of law provisions. Any disputes arising from your use of this Site shall be resolved in the state or federal courts located in Wayne County, Michigan.</p>
+
+  <h2>Changes to These Terms</h2>
+  <p>We reserve the right to update these Terms of Use at any time. Changes take effect when posted to this page. The "Last Updated" date at the top of this page reflects when revisions were last made. Continued use of the Site after any changes constitutes your acceptance of the updated terms.</p>
+
+  <div class="contact-box">
+    <p>Questions about these terms? Contact us at <a href="mailto:ApexPM@block-key.com">ApexPM@block-key.com</a> or call <a href="tel:+13133800255">(313) 380-0255</a>. Apex One LLC — 135 N. Old Woodward Ave Suite 200, Birmingham, MI 48009.</p>
+  </div>
+
+</div>
+
+<!-- ════════════════════ TRUST BAR ════════════════════ -->
+<div class="trust-bar-footer">
+  <div class="trust-bar-footer-inner">
+    <div class="tbf-item">
+      <img src="./piks/equal housing logo.png" alt="Equal Housing Opportunity" class="tbf-logo">
+      <span>Equal Housing Opportunity</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <img src="./piks/lis insure logo.png" alt="Licensed & Insured" class="tbf-licins-img">
+      <span>Licensed &amp; Insured in Michigan</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <img src="./piks/rent redi logo.png" alt="RentRedi" class="tbf-rentredi-img">
+      <span class="tbf-badge">Powered by</span>
+      <span class="tbf-brand">RentRedi</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Serving Metro Detroit Since 2010</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <div class="tbf-logo-combo">
+        <img src="./piks/GMARLOGO.png" alt="GMAR" class="tbf-logo">
+        <div class="tbf-logo-combo-sep"></div>
+        <img src="./piks/NARLOGO.jpg" alt="NAR Realtor" class="tbf-logo">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><span style="display:block;width:120px;height:66px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);margin:0 auto;"></span></div>
+      <p class="footer-tagline">Metro Detroit's Property Management Experts. Serving Macomb, Oakland &amp; Wayne counties.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./rentals.html">Available Units</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./buy.html">We Buy Homes</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="./faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+13133800255">(313) 380-0255</a></li>
+        <li><a href="mailto:ApexPM@block-key.com">ApexPM@block-key.com</a></li>
+        <li>135 N. Old Woodward Ave Suite 200, Birmingham, MI 48009</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2022 Apex One LLC. All rights reserved.</p>
+    <p><a href="./privacy.html" style="color:rgba(255,255,255,0.4)">Privacy</a> &middot; <a href="./terms.html" style="color:rgba(255,255,255,0.4)">Terms</a></p>
+  </div>
+</footer>
+
+
+<script>
+(function() {
+  var SELECTORS = [
+    '.card', '.service-card', '.benefit-card', '.benefit-item',
+    '.team-card', '.value-card', '.stat-card', '.process-step',
+    '.acc-item', '.testimonial-card', '.listing-card',
+    '.owner-hero-card', '.mission-stat', '.buy-scenario',
+    '.contact-card', '.faq-section-header', '.content-wrap h2',
+    '.trust-stat', '.county-col', '.step'
+  ];
+
+  function applyReveal(root) {
+    root = root || document;
+    SELECTORS.forEach(function(sel) {
+      root.querySelectorAll(sel).forEach(function(el, i) {
+        if (el.closest('.hero') || el.closest('nav') || el.closest('footer') || el.classList.contains('reveal')) return;
+        el.classList.add('reveal');
+        // Stagger cards within the same parent
+        var parent = el.parentElement;
+        var tag = sel.replace(/^\./, '');
+        var siblings = parent ? Array.from(parent.querySelectorAll(':scope > .' + tag)) : [];
+        var idx = siblings.indexOf(el);
+        if (idx === 1) el.classList.add('reveal-d1');
+        else if (idx === 2) el.classList.add('reveal-d2');
+        else if (idx === 3) el.classList.add('reveal-d3');
+        else if (idx >= 4) el.classList.add('reveal-d4');
+      });
+    });
+    observe(root);
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+  function observe(root) {
+    (root || document).querySelectorAll('.reveal:not(.observed)').forEach(function(el) {
+      el.classList.add('observed');
+      observer.observe(el);
+    });
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { applyReveal(); });
+  } else {
+    applyReveal();
+  }
+
+  // Re-run when listings are dynamically injected (rentals page)
+  var grid = document.getElementById('listingsGrid');
+  if (grid) {
+    new MutationObserver(function() { applyReveal(grid); }).observe(grid, { childList: true });
+  }
+
+  // Expose for portal switching (index.html)
+  window.apexReveal = applyReveal;
+})();
+</script>
+
+
+<script>
+(function() {
+  var nav = document.querySelector('nav');
+  if (!nav) return;
+  var lastY = 0;
+  function onScroll() {
+    var y = window.scrollY;
+    if (y > 40) {
+      nav.classList.add('nav-scrolled');
+    } else {
+      nav.classList.remove('nav-scrolled');
+    }
+    lastY = y;
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+
+<script>
+(function() {
+  var current = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('nav a[href]').forEach(function(link) {
+    var href = link.getAttribute('href').split('/').pop().split('?')[0];
+    if (href === current) {
+      link.classList.add('active');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

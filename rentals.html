@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Rentals — Apex One Property Management</title>
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0A1628;
+      --gold: #D4A017;
+      --royal: #1A4FBB;
+      --white: #FFFFFF;
+      --body: #111111;
+      --muted: #666;
+      --light-bg: #F9F8F6;
+      --badge-bg: #F0F4FF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--light-bg); color: var(--body); line-height: 1.6; }
+
+    h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    @media (max-width: 768px) { .container { padding: 0 24px; } }
+
+    /* ─── STICKY NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(10, 22, 40, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 16px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    @media (max-width: 768px) { nav { padding: 14px 24px; } }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-center {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-center a { white-space: nowrap;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      background: transparent;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-center a:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+    .nav-center a.active { color: var(--gold); border-color: var(--gold); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill-btn { white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      background: transparent;
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .pill-btn:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+
+    .pill-btn-gold {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--body);
+    }
+    .pill-btn-gold:hover { background: #E8B520; border-color: #E8B520; }
+
+    @media (max-width: 768px) {
+      .nav-center { display: none; }
+      nav { padding: 12px 16px; }
+      .nav-logo { font-size: 16px; }
+      .pill-btn { white-space: nowrap; padding: 8px 16px; font-size: 11px; }
+    }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      background: var(--navy);
+      padding: 60px 48px;
+      margin-top: 60px;
+      text-align: center;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 80%, rgba(212,160,23,0.1) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero .container { position: relative; z-index: 1; }
+
+    .hero-badge {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: inline-block;
+      padding: 6px 16px;
+      border: 1px solid var(--gold);
+      border-radius: 100px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 48px 24px; min-height: 320px; margin-top: 60px; }
+      .hero h1 { font-size: 28px; margin-bottom: 12px; }
+      .hero p { font-size: 14px; }
+    }
+
+    /* ─── FILTER BAR ─── */
+    .filter-bar {
+      background: var(--white);
+      padding: 32px 48px;
+      border-bottom: 1px solid #e0dcd8;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 60px;
+      z-index: 100;
+    }
+
+    .filter-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto auto auto 1fr auto;
+      gap: 16px;
+      align-items: end;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .filter-group label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--body);
+    }
+
+    .filter-group select,
+    .filter-group input {
+      padding: 10px 16px;
+      border: 1px solid #e0dcd8;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--body);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-group select:hover,
+    .filter-group input:hover {
+      border-color: var(--gold);
+    }
+
+    .filter-group select:focus,
+    .filter-group input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 2px rgba(212,160,23,0.1);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      grid-column: 1 / -1;
+    }
+
+    .filter-btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      padding: 10px 16px;
+      border: 1px solid #e0dcd8;
+      background: var(--white);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--body);
+    }
+
+    .filter-search {
+      padding: 10px 24px;
+      background: var(--gold);
+      color: var(--body);
+      border: none;
+      border-radius: 100px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .filter-search:hover {
+      background: #E8B520;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .filter-bar { padding: 24px; top: 60px; }
+      .filter-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .filter-group label { font-size: 11px; }
+      .filter-search { width: 100%; }
+    }
+
+    /* ─── LISTINGS GRID ─── */
+    .listings-section {
+      padding: 100px 48px;
+      background: var(--light-bg);
+    }
+
+    .listings-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .listing-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .listing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .listing-image {
+      position: relative;
+      height: 240px;
+      background: linear-gradient(135deg, #112240 0%, #0A1628 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .listing-image::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent);
+      background-size: 40px 40px;
+      z-index: 1;
+    }
+
+    .listing-image::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gold);
+      z-index: 2;
+    }
+
+    .listing-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--royal);
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      z-index: 3;
+    }
+
+    .listing-content {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .listing-price {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .listing-address {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--body);
+      margin-bottom: 16px;
+    }
+
+    .listing-specs {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .spec {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .spec-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .listing-description {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .listing-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .listing-btn {
+      flex: 1;
+      padding: 11px 16px;
+      border-radius: 8px;
+      border: none;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .listing-btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--navy);
+      color: var(--navy);
+    }
+    .listing-btn-outline:hover {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+
+    .listing-btn-gold {
+      background: var(--gold);
+      color: var(--body);
+    }
+    .listing-btn-gold:hover {
+      background: #B8860B;
+      transform: translateY(-1px);
+    }
+
+    /* ─── STATUS OVERLAYS ─── */
+    .listing-card.is-leased,
+    .listing-card.is-coming-soon {
+      position: relative;
+    }
+
+    .listing-card.is-leased .listing-image,
+    .listing-card.is-coming-soon .listing-image {
+      filter: grayscale(0.3);
+    }
+
+    .status-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .status-stamp {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 7px 20px;
+      border-radius: 100px;
+      border: 2px solid;
+    }
+
+    .status-stamp-leased {
+      background: rgba(220, 38, 38, 0.92);
+      color: #fff;
+      border-color: rgba(220, 38, 38, 0.5);
+      box-shadow: 0 4px 16px rgba(220,38,38,0.3);
+    }
+
+    .status-stamp-coming {
+      background: rgba(10, 22, 40, 0.88);
+      color: var(--gold);
+      border-color: rgba(212, 160, 23, 0.6);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+
+    .listing-card.is-leased .listing-buttons,
+    .listing-card.is-coming-soon .listing-buttons {
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .listing-card.is-leased .listing-price {
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-color: rgba(220,38,38,0.5);
+    }
+
+    @media (max-width: 900px) {
+      .listings-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    }
+
+    @media (max-width: 768px) {
+      .listings-section { padding: 60px 24px; }
+      .listings-grid { grid-template-columns: 1fr; gap: 20px; }
+      .listing-image { height: 200px; }
+      .listing-content { padding: 20px; }
+      .listing-price { font-size: 28px; }
+    }
+
+    /* ─── NO RESULTS STATE ─── */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 100px 48px;
+      background: var(--light-bg);
+    }
+
+    .no-results.show {
+      display: block;
+    }
+
+    .no-results-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+    }
+
+    .no-results h2 {
+      font-size: 32px;
+      color: var(--body);
+      margin-bottom: 12px;
+    }
+
+    .no-results p {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .no-results-btn {
+      padding: 14px 32px;
+      background: var(--gold);
+      color: var(--body);
+      border: none;
+      border-radius: 100px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 15px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.3s;
+    }
+    .no-results-btn:hover {
+      background: #E8B520;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .no-results { padding: 60px 24px; }
+      .no-results h2 { font-size: 24px; }
+    }
+
+    /* ─── CTA BANNER ─── */
+    .cta-section {
+      padding: 100px 48px;
+      background: var(--gold);
+      color: var(--body);
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      margin-bottom: 32px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .cta-btn {
+      padding: 14px 32px;
+      background: var(--navy);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 100px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 15px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.3s;
+    }
+    .cta-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.4);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .cta-section { padding: 60px 24px; }
+      .cta-section h2 { font-size: 32px; }
+      .cta-section p { font-size: 14px; }
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy);
+      color: var(--white);
+      padding: 64px 48px 32px;
+    }
+
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 64px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 18px;
+      color: var(--white);
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+
+    .footer-logo { text-align: center;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+    .footer-logo span { color: var(--gold); }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 44px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    @media (max-width: 768px) {
+      footer { padding: 48px 24px 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* ─── MODAL ─── */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 48px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+      transform: scale(0.95);
+      transition: transform 0.3s;
+    }
+
+    .modal.show .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    .modal-close:hover { color: var(--body); }
+
+    .modal h2 {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: var(--body);
+    }
+
+    .modal p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .modal input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e0dcd8;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      margin-bottom: 16px;
+    }
+    .modal input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 2px rgba(212,160,23,0.1);
+    }
+
+    .modal-submit {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--gold);
+      color: var(--body);
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.2s;
+    }
+    .modal-submit:hover { background: #E8B520; }
+
+    @media (max-width: 768px) {
+      .modal-content { padding: 32px; }
+      .modal h2 { font-size: 24px; }
+    }
+    /* ── FOOTER TRUST BAR ── */
+    .trust-bar-footer { background: #0A1628; border-top: 1px solid rgba(212,160,23,0.2); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 14px 48px; }
+    .trust-bar-footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
+    .tbf-item { display: flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.6); white-space: nowrap; }
+    .tbf-item svg { flex-shrink: 0; }
+    .tbf-eho-img { height: 36px; width: auto; filter: invert(1); opacity: 0.85; flex-shrink: 0; }
+    .tbf-rentredi-img { height: 22px; width: 22px; border-radius: 5px; flex-shrink: 0; }
+    .tbf-licins-img { height: 26px; width: 26px; filter: invert(1); opacity: 0.85; flex-shrink: 0; }
+    .tbf-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .tbf-badge { font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; }
+    .tbf-brand { font-size: 13px; font-weight: 700; color: #D4A017; }
+    .tbf-logo-combo { background: #D4A017; border-radius: 8px; padding: 5px 10px; display: flex; align-items: center; gap: 8px; }
+    .tbf-logo-combo-sep { width: 1px; height: 20px; background: rgba(0,0,0,0.2); flex-shrink: 0; }
+    .tbf-logo { height: 22px; width: auto; display: block; }
+    @media (max-width: 768px) { .trust-bar-footer { padding: 14px 24px; } .trust-bar-footer-inner { gap: 14px; } .tbf-divider { display: none; } }
+
+    /* ─── SCROLL REVEAL ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+
+    /* ─── NAV SHRINK ON SCROLL ─── */
+    nav {
+      transition: padding 0.35s cubic-bezier(0.22,1,0.36,1),
+                  box-shadow 0.35s ease,
+                  background 0.35s ease;
+    }
+    nav.nav-scrolled {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+
+    /* ─── PAGE TRANSITIONS ─── */
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pageFadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-8px); }
+    }
+    body {
+      animation: pageFadeIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    body.page-exit {
+      animation: pageFadeOut 0.28s ease forwards;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ STICKY NAV ════════════════════ -->
+<nav>
+  <a href="./index.html" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;"><span style="display:block;width:110px;height:60px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);flex-shrink:0;"></span><span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.55);line-height:1.5;border-left:1px solid rgba(255,255,255,0.2);padding-left:10px;">Property<br>Management</span></a>
+  <div class="nav-center">
+    <a href="index.html">Home</a>
+    <a href="rentals.html" class="active">Available Units</a>
+    <a href="./about.html">About</a>
+    <a href="./services.html">Services</a>
+    <a href="./contact.html">Contact</a>
+  </div>
+  <div class="nav-right">
+    <button class="pill-btn" onclick="goToOwnerPortal()">Owner Portal</button>
+    <button class="pill-btn pill-btn-gold" onclick="goToTenantPortal()">Tenant Portal</button>
+  </div>
+</nav>
+
+<!-- ════════════════════ HERO SECTION ════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <span class="hero-badge">NOW LEASING</span>
+    <h1>Available Rentals in Metro Detroit</h1>
+    <p>Quality homes managed by Metro Detroit's most trusted property management team</p>
+  </div>
+</section>
+
+<!-- ════════════════════ FILTER BAR ════════════════════ -->
+<section class="filter-bar">
+  <div class="container">
+    <div class="filter-container">
+      <div class="filter-group">
+        <label>Bedrooms</label>
+        <div class="filter-btn-group">
+          <button class="filter-btn active" data-filter="bedrooms" data-value="all">All</button>
+          <button class="filter-btn" data-filter="bedrooms" data-value="1">1</button>
+          <button class="filter-btn" data-filter="bedrooms" data-value="2">2</button>
+          <button class="filter-btn" data-filter="bedrooms" data-value="3">3+</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Max Rent</label>
+        <select id="rentFilter">
+          <option value="all">All Prices</option>
+          <option value="900">Under $900</option>
+          <option value="1200">$900 - $1,200</option>
+          <option value="9999">$1,200+</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Area</label>
+        <select id="areaFilter">
+          <option value="all">All Areas</option>
+          <option value="Detroit">Detroit</option>
+          <option value="Warren">Warren</option>
+          <option value="Sterling Heights">Sterling Heights</option>
+          <option value="Roseville">Roseville</option>
+          <option value="Eastpointe">Eastpointe</option>
+        </select>
+      </div>
+
+      <div style="flex: 1;"></div>
+      <button class="filter-search" onclick="applyFilters()">Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ LISTINGS GRID ════════════════════ -->
+<section class="listings-section">
+  <div class="container">
+    <div class="listings-grid" id="listingsGrid">
+      <!-- Listings populated by JavaScript -->
+    </div>
+
+    <div class="no-results" id="noResults">
+      <div class="no-results-icon">🏚️</div>
+      <h2>No units match your search</h2>
+      <p>Contact us and we'll help you find the right fit. New units added regularly!</p>
+      <button class="no-results-btn" onclick="openWaitlistModal()">Contact Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ CTA BANNER ════════════════════ -->
+<section class="cta-section">
+  <h2>Don't See What You're Looking For?</h2>
+  <p>New units added regularly. Get on our waitlist and we'll notify you first.</p>
+  <button class="cta-btn" onclick="openWaitlistModal()">Join Waitlist</button>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar-footer">
+  <div class="trust-bar-footer-inner">
+    <div class="tbf-item">
+      <img src="./piks/equal-housing-opportunity-logo-1200w.png" alt="Equal Housing Opportunity" class="tbf-eho-img">
+      <span>Equal Housing Opportunity</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <img src="./piks/lis insure logo.png" alt="Licensed & Insured" class="tbf-licins-img">
+      <span>Licensed &amp; Insured in Michigan</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <img src="./piks/rent redi logo.png" alt="RentRedi" class="tbf-rentredi-img">
+      <span class="tbf-badge">Powered by</span>
+      <span class="tbf-brand">RentRedi</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Serving Metro Detroit Since 2010</span>
+    </div>
+    <div class="tbf-divider"></div>
+    <div class="tbf-item">
+      <div class="tbf-logo-combo">
+        <img src="./piks/GMARLOGO.png" alt="GMAR" class="tbf-logo">
+        <div class="tbf-logo-combo-sep"></div>
+        <img src="./piks/NARLOGO.jpg" alt="NAR Realtor" class="tbf-logo">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><span style="display:block;width:120px;height:66px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);margin:0 auto;"></span></div>
+      <p class="footer-tagline">Metro Detroit's Property Management Experts. Serving Macomb, Oakland & Wayne counties.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./rentals.html">Available Units</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./buy.html">We Buy Homes</a></li>
+        <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#">Application FAQs</a></li>
+        <li><a href="#">Lease Info</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+13133800255">(313) 380-0255</a></li>
+        <li><a href="mailto:ApexPM@block-key.com">ApexPM@block-key.com</a></li>
+        <li>135 N. Old Woodward Ave Suite 200, Birmingham, MI 48009</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2022 Apex One. All rights reserved.</p>
+    <p><a href="./privacy.html" style="color:rgba(255,255,255,0.75)">Privacy</a> · <a href="./terms.html" style="color:rgba(255,255,255,0.75)">Terms</a></p>
+  </div>
+</footer>
+
+<!-- ════════════════════ WAITLIST MODAL ════════════════════ -->
+<div class="modal" id="waitlistModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeWaitlistModal()">×</button>
+    <h2>Join Our Waitlist</h2>
+    <p>We'll notify you as soon as new units matching your preferences become available.</p>
+    <input type="email" placeholder="Your Email" id="waitlistEmail">
+    <button class="modal-submit" onclick="submitWaitlist()">Join Waitlist</button>
+  </div>
+</div>
+
+<script>
+  // Portal navigation
+  function goToOwnerPortal() {
+    window.location.href = 'index.html?portal=owner';
+  }
+
+  function goToTenantPortal() {
+    window.location.href = 'index.html?portal=tenant';
+  }
+
+  // Listing data
+  const listings = [
+    {
+      id: 5,
+      address: '14XX Gratiot Ave, Roseville, MI',
+      area: 'Roseville',
+      bedrooms: 3,
+      bathrooms: 1,
+      sqft: 1020,
+      rent: 1150,
+      status: 'coming_soon',
+      description: 'Well-maintained 3-bedroom home becoming available soon. Join the waitlist to be first in line.'
+    },
+    {
+      id: 6,
+      address: '2100 12 Mile Rd, Warren, MI',
+      area: 'Warren',
+      bedrooms: 4,
+      bathrooms: 2,
+      sqft: 1300,
+      rent: 1400,
+      status: 'coming_soon',
+      description: 'Spacious 4-bedroom family home with large backyard. Coming to market soon — get notified.'
+    },
+    {
+      id: 1,
+      address: '1250 Maple St, Warren, MI',
+      area: 'Warren',
+      bedrooms: 3,
+      bathrooms: 1,
+      sqft: 950,
+      rent: 1100,
+      status: 'leased',
+      description: 'Recently updated 3-bedroom home with modern kitchen and spacious living areas.'
+    },
+    {
+      id: 2,
+      address: '567 Oak Ave, Eastpointe, MI',
+      area: 'Eastpointe',
+      bedrooms: 2,
+      bathrooms: 1,
+      sqft: 780,
+      rent: 875,
+      status: 'leased',
+      description: 'Cozy 2-bedroom in a quiet, well-maintained neighborhood.'
+    },
+    {
+      id: 3,
+      address: '3400 Van Dyke, Sterling Heights, MI',
+      area: 'Sterling Heights',
+      bedrooms: 3,
+      bathrooms: 2,
+      sqft: 1100,
+      rent: 1250,
+      status: 'leased',
+      description: 'Beautiful 3-bedroom home with 2 bathrooms and attached garage.'
+    },
+    {
+      id: 4,
+      address: '842 Michigan Ave, Roseville, MI',
+      area: 'Roseville',
+      bedrooms: 2,
+      bathrooms: 1,
+      sqft: 820,
+      rent: 950,
+      status: 'leased',
+      description: 'Recently renovated 2-bedroom near shopping and schools.'
+    }
+  ];
+
+  let filterState = {
+    bedrooms: 'all',
+    rent: 'all',
+    area: 'all'
+  };
+
+  function renderListings(itemsToShow) {
+    const grid = document.getElementById('listingsGrid');
+    const noResults = document.getElementById('noResults');
+
+    if (itemsToShow.length === 0) {
+      grid.style.display = 'none';
+      noResults.classList.add('show');
+      return;
+    }
+
+    grid.style.display = 'grid';
+    noResults.classList.remove('show');
+
+    grid.innerHTML = itemsToShow.map(listing => {
+      const isLeased = listing.status === 'leased';
+      const isComingSoon = listing.status === 'coming_soon';
+      const cardClass = isLeased ? 'listing-card is-leased' : isComingSoon ? 'listing-card is-coming-soon' : 'listing-card';
+      const priceDisplay = isComingSoon ? `<div class="listing-price" style="color:var(--muted);font-size:18px;font-weight:600;letter-spacing:0.05em;">COMING SOON</div>` : `<div class="listing-price">$${listing.rent}/mo</div>`;
+      const statusOverlay = isLeased
+        ? `<div class="status-overlay"><span class="status-stamp status-stamp-leased">Leased</span></div>`
+        : isComingSoon
+        ? `<div class="status-overlay"><span class="status-stamp status-stamp-coming">Coming Soon</span></div>`
+        : '';
+      return `
+      <div class="${cardClass}">
+        <div class="listing-image">
+          <span class="listing-badge">${listing.area}</span>
+          ${statusOverlay}
+        </div>
+        <div class="listing-content">
+          ${priceDisplay}
+          <div class="listing-address">${listing.address}</div>
+          <div class="listing-specs">
+            <div class="spec">
+              <span class="spec-icon">🛏️</span>
+              <span>${listing.bedrooms} Bed</span>
+            </div>
+            <div class="spec">
+              <span class="spec-icon">🚿</span>
+              <span>${listing.bathrooms} Bath</span>
+            </div>
+            <div class="spec">
+              <span class="spec-icon">📐</span>
+              <span>${listing.sqft} sqft</span>
+            </div>
+          </div>
+          <p class="listing-description">${listing.description}</p>
+          <div class="listing-buttons">
+            ${isLeased
+              ? `<button class="listing-btn listing-btn-outline" style="flex:1" disabled>Leased</button>`
+              : `<button class="listing-btn listing-btn-outline">View Details</button>
+                 <button class="listing-btn listing-btn-gold" onclick="openWaitlistModal()">Join Waitlist</button>`
+            }
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function applyFilters() {
+    // Get current filter values
+    filterState.bedrooms = document.querySelector('[data-filter="bedrooms"].active')?.dataset.value || 'all';
+    filterState.rent = document.getElementById('rentFilter').value;
+    filterState.area = document.getElementById('areaFilter').value;
+
+    // Filter listings
+    let filtered = listings.filter(listing => {
+      const bedroomMatch = filterState.bedrooms === 'all' ||
+                          (filterState.bedrooms === '3' ? listing.bedrooms >= 3 : listing.bedrooms === parseInt(filterState.bedrooms));
+
+      const rentLimit = filterState.rent === 'all' ? 9999 : parseInt(filterState.rent);
+      const rentMatch = listing.rent <= rentLimit;
+
+      const areaMatch = filterState.area === 'all' || listing.area === filterState.area;
+
+      return bedroomMatch && rentMatch && areaMatch;
+    });
+
+    renderListings(filtered);
+  }
+
+  function openWaitlistModal() {
+    document.getElementById('waitlistModal').classList.add('show');
+  }
+
+  function closeWaitlistModal() {
+    document.getElementById('waitlistModal').classList.remove('show');
+  }
+
+  function submitWaitlist() {
+    const email = document.getElementById('waitlistEmail').value;
+    if (email) {
+      alert('Thanks for joining! We\'ll notify you at ' + email);
+      closeWaitlistModal();
+      document.getElementById('waitlistEmail').value = '';
+    }
+  }
+
+  // Set up filter button event listeners
+  document.querySelectorAll('[data-filter]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll(`[data-filter="${this.dataset.filter}"]`).forEach(b => {
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+    });
+  });
+
+  // Close modal on outside click
+  document.getElementById('waitlistModal').addEventListener('click', function(e) {
+    if (e.target === this) closeWaitlistModal();
+  });
+
+  // Initial render
+  renderListings(listings);
+</script>
+
+
+<script>
+(function() {
+  var SELECTORS = [
+    '.card', '.service-card', '.benefit-card', '.benefit-item',
+    '.team-card', '.value-card', '.stat-card', '.process-step',
+    '.acc-item', '.testimonial-card', '.listing-card',
+    '.owner-hero-card', '.mission-stat', '.buy-scenario',
+    '.contact-card', '.faq-section-header', '.content-wrap h2',
+    '.trust-stat', '.county-col', '.step'
+  ];
+
+  function applyReveal(root) {
+    root = root || document;
+    SELECTORS.forEach(function(sel) {
+      root.querySelectorAll(sel).forEach(function(el, i) {
+        if (el.closest('.hero') || el.closest('nav') || el.closest('footer') || el.classList.contains('reveal')) return;
+        el.classList.add('reveal');
+        // Stagger cards within the same parent
+        var parent = el.parentElement;
+        var tag = sel.replace(/^\./, '');
+        var siblings = parent ? Array.from(parent.querySelectorAll(':scope > .' + tag)) : [];
+        var idx = siblings.indexOf(el);
+        if (idx === 1) el.classList.add('reveal-d1');
+        else if (idx === 2) el.classList.add('reveal-d2');
+        else if (idx === 3) el.classList.add('reveal-d3');
+        else if (idx >= 4) el.classList.add('reveal-d4');
+      });
+    });
+    observe(root);
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+  function observe(root) {
+    (root || document).querySelectorAll('.reveal:not(.observed)').forEach(function(el) {
+      el.classList.add('observed');
+      observer.observe(el);
+    });
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { applyReveal(); });
+  } else {
+    applyReveal();
+  }
+
+  // Re-run when listings are dynamically injected (rentals page)
+  var grid = document.getElementById('listingsGrid');
+  if (grid) {
+    new MutationObserver(function() { applyReveal(grid); }).observe(grid, { childList: true });
+  }
+
+  // Expose for portal switching (index.html)
+  window.apexReveal = applyReveal;
+})();
+</script>
+
+
+<script>
+(function() {
+  var nav = document.querySelector('nav');
+  if (!nav) return;
+  var lastY = 0;
+  function onScroll() {
+    var y = window.scrollY;
+    if (y > 40) {
+      nav.classList.add('nav-scrolled');
+    } else {
+      nav.classList.remove('nav-scrolled');
+    }
+    lastY = y;
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+
+<script>
+(function() {
+  var current = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('nav a[href]').forEach(function(link) {
+    var href = link.getAttribute('href').split('/').pop().split('?')[0];
+    if (href === current) {
+      link.classList.add('active');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
