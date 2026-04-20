@@ -716,8 +716,8 @@
     }
 
     @media (max-width: 768px) {
-      .trust-bar { padding: 48px 24px; }
-      .trust-bar .container { grid-template-columns: 1fr; gap: 24px; }
+      .trust-bar { padding: 100px 24px 52px; }
+      .trust-bar .container { grid-template-columns: repeat(2, 1fr); gap: 28px; }
       .trust-stat-num { font-size: 36px; }
       .trust-stat-label { font-size: 12px; }
     }
@@ -1007,8 +1007,8 @@
       /* Sections */
       .owner-section { padding: 60px 24px; }
       .tenant-section { padding: 60px 24px; }
-      .owner-hero { padding: 60px 24px; margin-top: 72px; }
-      .tenant-hero { padding: 100px 24px 60px; margin-top: 72px; }
+      .owner-hero { padding: 60px 24px; margin-top: 0; }
+      .tenant-hero { padding: 60px 24px; margin-top: 0; }
       .cta-section { padding: 60px 24px; }
       footer { padding: 48px 24px 28px; }
 
@@ -1049,9 +1049,7 @@
       .footer-grid { grid-template-columns: 1fr; gap: 32px; }
       .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
 
-      /* Trust bar */
-      .trust-bar .container { grid-template-columns: repeat(2, 1fr); }
-      .trust-bar { padding: 48px 24px; }
+      /* Trust bar — padding handled in the earlier @media block above (100px top to clear fixed nav) */
     }
   </style>
 </head>
@@ -1371,7 +1369,6 @@
   <nav class="tenant-nav">
     <div class="nav-logo" onclick="goHome()" style="display:flex;align-items:center;gap:10px;cursor:pointer;"><span style="display:block;width:110px;height:60px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);flex-shrink:0;"></span><span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.55);line-height:1.5;border-left:1px solid rgba(255,255,255,0.2);padding-left:10px;">Property<br>Management</span></div>
     <div class="nav-right">
-      <a href="./rentals.html" class="pill-btn">Available Units</a>
       <a href="./about.html" class="pill-btn">About</a>
       <a href="./services.html" class="pill-btn">Services</a>
       <a href="./contact.html" class="pill-btn">Contact</a>
