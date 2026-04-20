@@ -350,7 +350,7 @@
     .mobile-menu a { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.85); text-decoration: none; padding: 12px 0; transition: color 0.2s; }
     .mobile-menu a:hover { color: var(--gold); }
     .mobile-menu .mm-portal-gold { padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; color: var(--navy); background: var(--gold); border: none; cursor: pointer; margin-top: 12px; text-decoration: none; display: inline-block; }
-    @media (max-width: 768px) { .nav-right { display: none; } .hamburger { display: flex; position: absolute; right: 20px; } nav { justify-content: center; } }
+    @media (max-width: 768px) { .nav-right { display: none; } .hamburger { display: flex; position: fixed; right: 20px; top: 18px; z-index: 1101; } nav { justify-content: center !important; } }
   </style>
 </head>
 <body>
