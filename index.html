@@ -894,6 +894,164 @@
       animation: pageFadeOut 0.28s ease forwards;
       pointer-events: none;
     }
+
+    /* ─── HAMBURGER BUTTON ─── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+      z-index: 1100;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .owner-nav .hamburger span,
+    #homepage nav .hamburger span { background: rgba(255,255,255,0.85); }
+    #ownerApp nav .hamburger span { background: rgba(255,255,255,0.85); }
+    #tenantApp nav .hamburger span { background: rgba(255,255,255,0.85); }
+    #homepage nav .hamburger span { background: var(--body); }
+
+    /* ─── MOBILE MENU OVERLAY ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--navy);
+      z-index: 1050;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 40px 24px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 32px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 8px;
+    }
+    .mobile-menu a,
+    .mobile-menu .mm-btn {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 12px 0;
+      letter-spacing: -0.01em;
+      transition: color 0.2s;
+      text-align: center;
+    }
+    .mobile-menu a:hover,
+    .mobile-menu .mm-btn:hover { color: var(--gold); }
+    .mobile-menu .mm-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin: 8px 0;
+    }
+    .mobile-menu .mm-switch {
+      margin-top: 16px;
+      padding: 12px 28px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      background: none;
+      cursor: pointer;
+    }
+    .mobile-menu .mm-portal {
+      margin-top: 8px;
+      padding: 12px 28px;
+      border-radius: 100px;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--gold);
+      cursor: pointer;
+    }
+
+    /* ─── MOBILE BREAKPOINT ─── */
+    @media (max-width: 768px) {
+      .nav-right { display: none; }
+      .hamburger { display: flex; }
+
+      /* Sections */
+      .owner-section { padding: 60px 24px; }
+      .tenant-section { padding: 60px 24px; }
+      .owner-hero { padding: 60px 24px; margin-top: 72px; }
+      .tenant-hero { padding: 100px 24px 60px; margin-top: 72px; }
+      .cta-section { padding: 60px 24px; }
+      footer { padding: 48px 24px 28px; }
+
+      /* Hero select */
+      .hero-select { padding: 100px 24px 280px; }
+
+      /* Owner hero card */
+      .owner-hero-card { grid-template-columns: 1fr; }
+      .owner-hero-image { min-height: 220px; }
+      .owner-hero-content { padding: 28px 24px; }
+      .owner-hero-content h2 { font-size: 28px; }
+      .owner-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .stat-num { font-size: 32px; }
+
+      /* Typography */
+      .section-title { font-size: 30px; }
+      .section-subtitle { font-size: 14px; margin-bottom: 32px; }
+      .cta-section h2 { font-size: 30px; }
+      .cta-section p { font-size: 15px; }
+
+      /* Cards */
+      .card-grid { grid-template-columns: 1fr; }
+      .card { padding: 24px; }
+
+      /* Process */
+      .process-grid { grid-template-columns: 1fr; gap: 40px; }
+      .process-grid::before { display: none; }
+      .process-step { padding: 0 16px; }
+
+      /* Testimonials */
+      .testimonial-grid { grid-template-columns: 1fr; }
+
+      /* Two col */
+      .two-col { grid-template-columns: 1fr; gap: 32px; }
+      .two-col h2 { font-size: 26px; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+
+      /* Trust bar */
+      .trust-bar .container { grid-template-columns: repeat(2, 1fr); }
+      .trust-bar { padding: 48px 24px; }
+    }
   </style>
 </head>
 <body>
@@ -950,7 +1108,19 @@
       <button class="pill-btn" onclick="selectPath('tenant')">Switch to Tenant Portal</button>
       <button class="pill-btn pill-btn-gold">Owner Portal</button>
     </div>
+    <button class="hamburger" onclick="document.getElementById('ownerMobileMenu').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="mobile-menu" id="ownerMobileMenu">
+    <button class="mobile-menu-close" onclick="document.getElementById('ownerMobileMenu').classList.remove('open')">&times;</button>
+    <a href="./about.html">About</a>
+    <a href="./services.html">Services</a>
+    <a href="./contact.html">Contact</a>
+    <div class="mm-divider"></div>
+    <button class="mm-switch" onclick="document.getElementById('ownerMobileMenu').classList.remove('open');selectPath('tenant')">Switch to Tenant Portal</button>
+    <button class="mm-portal">Owner Portal</button>
+  </div>
 
   <!-- Hero Card -->
   <section class="owner-hero">
@@ -1207,7 +1377,20 @@
       <button class="pill-btn" onclick="selectPath('owner')">Switch to Owner Portal</button>
       <button class="pill-btn pill-btn-gold">Tenant Portal</button>
     </div>
+    <button class="hamburger" onclick="document.getElementById('tenantMobileMenu').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="mobile-menu" id="tenantMobileMenu">
+    <button class="mobile-menu-close" onclick="document.getElementById('tenantMobileMenu').classList.remove('open')">&times;</button>
+    <a href="./rentals.html">Available Units</a>
+    <a href="./about.html">About</a>
+    <a href="./services.html">Services</a>
+    <a href="./contact.html">Contact</a>
+    <div class="mm-divider"></div>
+    <button class="mm-switch" onclick="document.getElementById('tenantMobileMenu').classList.remove('open');selectPath('owner')">Switch to Owner Portal</button>
+    <button class="mm-portal">Tenant Portal</button>
+  </div>
 
   <!-- Hero -->
   <section class="tenant-hero">
