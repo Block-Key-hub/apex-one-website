@@ -45,7 +45,7 @@
       align-items: center;
       justify-content: space-between;
     }
-    @media (max-width: 768px) { nav { padding: 14px 24px; } }
+    /* mobile overrides consolidated below */
 
     .nav-logo {
       font-size: 18px;
@@ -113,10 +113,7 @@
     }
     .pill-btn-gold:hover { background: #E8B520; border-color: #E8B520; }
 
-    @media (max-width: 768px) {
-      nav { padding: 12px 16px; }
-      .nav-logo { font-size: 16px; }
-    }
+    /* placeholder — all mobile rules consolidated at bottom */
 
     /* ─── HERO SECTION ─── */
     .hero {
@@ -182,7 +179,7 @@
     }
 
     @media (max-width: 768px) {
-      .hero { padding: 120px 24px 60px; min-height: 320px; }
+      .hero { padding: 100px 24px 60px; min-height: 320px; }
       .hero h1 { font-size: 28px; margin-bottom: 12px; }
       .hero p { font-size: 14px; }
     }
@@ -306,8 +303,8 @@
     }
 
     @media (max-width: 768px) {
-      .filter-bar { padding: 24px; top: 89px; } /* exact mobile nav: 14px + 60px + 14px + 1px */
-      nav.nav-scrolled ~ section.filter-bar { top: 81px; }
+      .filter-bar { padding: 20px 16px; top: 69px; } /* 12px pad + 44px logo + 12px pad + 1px border */
+      nav.nav-scrolled ~ section.filter-bar { top: 65px; } /* compact: 10+44+10+1 */
       .filter-container {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -904,7 +901,16 @@
     .mobile-menu .mm-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 12px 24px; width: calc(100% - 48px); }
     .mobile-menu .mm-switch { margin: 12px 24px 4px; padding: 13px 20px; border-radius: 100px; border: 1.5px solid rgba(255,255,255,0.3); font-size: 12px; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: none; cursor: pointer; min-height: 44px; width: calc(100% - 48px); touch-action: manipulation; }
     .mobile-menu .mm-portal-gold { margin: 6px 24px 0; padding: 13px 20px; border-radius: 100px; font-size: 12px; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy); background: var(--gold); border: none; cursor: pointer; min-height: 44px; width: calc(100% - 48px); text-decoration: none; display: flex; align-items: center; justify-content: center; touch-action: manipulation; }
-    @media (max-width: 768px) { .nav-right { display: none; } .hamburger { display: flex; position: fixed; right: 16px; top: 16px; z-index: 1101; } nav { justify-content: center !important; } footer { padding-bottom: max(28px, env(safe-area-inset-bottom, 28px)); } }
+    @media (max-width: 768px) {
+      html, body { overflow-x: hidden; }
+      nav { padding: 12px 16px; justify-content: center !important; }
+      .nav-center { display: none; }
+      .nav-right { display: none; }
+      .nav-logo-sub { display: none !important; }
+      .nav-logo-img { width: 80px !important; height: 44px !important; }
+      .hamburger { display: flex; position: fixed; right: 16px; top: 14px; z-index: 1101; }
+      footer { padding-bottom: max(28px, env(safe-area-inset-bottom, 28px)); }
+    }
     @media (prefers-reduced-motion: reduce) { body { animation: none !important; } .mobile-menu.open { animation: none; } }
   </style>
   <meta property="og:type" content="website">
@@ -918,7 +924,7 @@
 
 <!-- ════════════════════ STICKY NAV ════════════════════ -->
 <nav>
-  <a href="./index.html" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;"><span style="display:block;width:110px;height:60px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);flex-shrink:0;"></span><span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.55);line-height:1.5;border-left:1px solid rgba(255,255,255,0.2);padding-left:10px;">Property<br>Management</span></a>
+  <a href="./index.html" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;"><span class="nav-logo-img" style="display:block;width:110px;height:60px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);flex-shrink:0;"></span><span class="nav-logo-sub" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.55);line-height:1.5;border-left:1px solid rgba(255,255,255,0.2);padding-left:10px;">Property<br>Management</span></a>
   <div class="nav-center">
     <a href="./about.html">About</a>
     <a href="./contact.html">Contact</a>
