@@ -293,56 +293,41 @@
       pointer-events: none;
     }
 
-    /* ─── HAMBURGER & DRAWER ─── */
-    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; background: none; border: none; padding: 10px; margin-right: -10px; z-index: 1100; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.85); border-radius: 2px; transition: all 0.3s ease; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    /* ─── MOBILE DRAWER (≤ 1024px) ─── */
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 6px; cursor: pointer; background: none; border: none; padding: 8px; flex-shrink: 0; z-index: 1200; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display: none; position: fixed; top: 0; right: 0; bottom: 0; width: 280px; max-width: 85vw; background: var(--navy); z-index: 1050; flex-direction: column; align-items: stretch; justify-content: flex-start; padding: 80px 0 max(40px, env(safe-area-inset-bottom, 40px)); overflow-y: auto; box-shadow: -4px 0 32px rgba(0,0,0,0.5); }
-    .mobile-menu.open { display: flex; animation: mmSlideIn 0.32s cubic-bezier(0.4,0,0.2,1) both; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1049; cursor: pointer; }
+    .nav-overlay.open { display: block; }
+    .mobile-menu { display: none; position: fixed; top: 0; right: 0; width: 100%; height: 100vh; background: #0A1628; z-index: 1050; flex-direction: column; overflow: hidden; transform: translateX(100%); }
+    .mobile-menu.open { display: flex; animation: mmSlideIn 0.35s cubic-bezier(0.4,0,0.2,1) forwards; }
     @keyframes mmSlideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
-    .mobile-menu-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: rgba(255,255,255,0.7); font-size: 28px; cursor: pointer; line-height: 1; padding: 8px; touch-action: manipulation; }
-    .mobile-menu a, .mobile-menu .mm-btn { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 700; color: rgba(255,255,255,0.85); text-decoration: none; background: none; border: none; border-bottom: 1px solid rgba(255,255,255,0.06); cursor: pointer; padding: 16px 24px; letter-spacing: -0.01em; transition: color 0.2s, background 0.2s; text-align: left; width: 100%; min-height: 52px; display: flex; align-items: center; }
-    .mobile-menu a:hover, .mobile-menu .mm-btn:hover { color: var(--gold); background: rgba(255,255,255,0.04); }
-    .mobile-menu a.active { color: var(--gold); }
-    .mobile-menu .mm-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 12px 24px; width: calc(100% - 48px); }
-    .mobile-menu .mm-switch {
-      padding: 12px 28px;
-      border-radius: 100px;
-      border: 1.5px solid rgba(255,255,255,0.3);
-      font-size: 13px;
-      font-weight: 600;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-      background: none;
-      cursor: pointer;
-      margin-top: 8px;
+    .mm-close-row { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .mm-brand-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .mm-close { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 32px; line-height: 1; cursor: pointer; padding: 4px 8px; touch-action: manipulation; transition: color 0.2s; }
+    .mm-close:hover { color: #fff; }
+    .mm-links { flex: 1; min-height: 0; display: flex; flex-direction: column; padding-top: 8px; overflow-y: auto; }
+    .mm-links a { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.88); text-decoration: none; padding: 17px 28px; border-bottom: 1px solid rgba(255,255,255,0.05); display: block; transition: color 0.15s, background 0.15s; letter-spacing: -0.01em; }
+    .mm-links a:hover { color: #D4A017; background: rgba(255,255,255,0.03); }
+    .mm-links a.active { color: #D4A017; }
+    .mm-portals { padding: 20px 28px max(20px, env(safe-area-inset-bottom, 20px)); display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .mm-portal-outline { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 52px; border-radius: 100px; border: 2px solid rgba(255,255,255,0.45); background: transparent; color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; text-decoration: none; touch-action: manipulation; transition: border-color 0.2s, background 0.2s; }
+    .mm-portal-outline:hover { border-color: #fff; background: rgba(255,255,255,0.07); }
+    .mm-portal-gold { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 52px; border-radius: 100px; border: none; background: #D4A017; color: #0A1628; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; text-decoration: none; touch-action: manipulation; transition: background 0.2s; }
+    .mm-portal-gold:hover { background: #E8B520; }
+    @media (max-width: 1024px) {
+      html, body { overflow-x: hidden; }
+      nav { padding: 12px 20px !important; justify-content: space-between !important; }
+      .nav-center { display: none !important; }
+      .nav-right { display: none !important; }
+      .nav-logo-sub { display: none !important; }
+      .nav-logo-img { width: 80px !important; height: 44px !important; }
+      .hamburger { display: flex; }
     }
-    .mobile-menu .mm-portal {
-      padding: 12px 28px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--navy);
-      background: var(--gold);
-      border: none;
-      cursor: pointer;
-      margin-top: 4px;
-    }
+    @media (prefers-reduced-motion: reduce) { .mobile-menu.open { animation: none; } }
 
-    @media (max-width: 768px) {
-      .nav-right { display: none; }
-      .hamburger { display: flex; position: fixed; right: 16px; top: 16px; z-index: 1101; }
-      nav { justify-content: center !important; }
-      footer { padding-bottom: max(28px, env(safe-area-inset-bottom, 28px)); }
-    }
-    @media (prefers-reduced-motion: reduce) { .reveal, .animate { opacity: 1 !important; transform: none !important; transition: none !important; } body { animation: none !important; } .mobile-menu.open { animation: none; } }
   </style>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Apex One Property Management">
@@ -355,7 +340,7 @@
 
 <!-- NAV -->
 <nav class="owner-nav">
-  <div class="nav-logo" onclick="goHome()" style="display:flex;align-items:center;gap:14px;cursor:pointer;"><span style="display:block;width:120px;height:66px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);flex-shrink:0;"></span><span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.65);line-height:1.5;border-left:1px solid rgba(255,255,255,0.2);padding-left:14px;">Property<br>Management</span></div>
+  <div class="nav-logo" onclick="goHome()" style="display:flex;align-items:center;gap:14px;cursor:pointer;"><span style="display:block;width:120px;height:66px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);flex-shrink:0;"></span><span class="nav-logo-sub" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.65);line-height:1.5;border-left:1px solid rgba(255,255,255,0.2);padding-left:14px;">Property<br>Management</span></div>
   <div class="nav-right">
     <a href="./about.html" class="pill-btn">About</a>
     <a href="./services.html" class="pill-btn active">Services</a>
@@ -363,19 +348,29 @@
     <button class="pill-btn" onclick="selectPath('tenant')">Switch to Tenant Portal</button>
     <button class="pill-btn pill-btn-gold">Owner Portal</button>
   </div>
-  <button class="hamburger" id="servicesHamburger" onclick="this.classList.add('open');document.getElementById('servicesMobileMenu').classList.add('open')" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" id="ham_services" onclick="openDrawer_services()" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
-<div class="mobile-menu" id="servicesMobileMenu">
-  <button class="mobile-menu-close" onclick="document.getElementById('servicesHamburger').classList.remove('open');document.getElementById('servicesMobileMenu').classList.remove('open')">&times;</button>
-  <a href="./about.html">About</a>
-  <a href="./services.html" class="active">Services</a>
-  <a href="./contact.html">Contact</a>
-  <div class="mm-divider"></div>
-  <button class="mm-switch" onclick="document.getElementById('servicesHamburger').classList.remove('open');document.getElementById('servicesMobileMenu').classList.remove('open');window.location.href='./index.html?portal=owner'">Owner Portal</button>
-  <button class="mm-portal-gold" onclick="window.location.href='./index.html?portal=tenant'">Tenant Portal</button>
+<div class="nav-overlay" id="overlay_services" onclick="closeDrawer_services()"></div>
+<div class="mobile-menu" id="menu_services">
+  <div class="mm-close-row">
+    <span class="mm-brand-label">Apex One</span>
+    <button class="mm-close" onclick="closeDrawer_services()" aria-label="Close menu">&times;</button>
+  </div>
+  <div class="mm-links">
+  <a href="./index.html" onclick="closeDrawer_services()">Home</a>
+  <a href="./rentals.html" onclick="closeDrawer_services()">Available Units</a>
+  <a href="./about.html" onclick="closeDrawer_services()">About</a>
+  <a href="./services.html" class="active" onclick="closeDrawer_services()">Services</a>
+  <a href="./faq.html" onclick="closeDrawer_services()">FAQ</a>
+  <a href="./contact.html" onclick="closeDrawer_services()">Contact</a>
+  <a href="./buy.html" onclick="closeDrawer_services()">We Buy Homes</a>
+  </div>
+  <div class="mm-portals">
+    <button class="mm-portal-outline" onclick="closeDrawer_services(); window.location.href='./index.html?portal=owner'">Owner Portal</button>
+    <button class="mm-portal-gold" onclick="closeDrawer_services(); window.location.href='./index.html?portal=tenant'">Tenant Portal</button>
+  </div>
 </div>
+
 
 <!-- HERO -->
 <section class="hero">
@@ -712,6 +707,20 @@
     }
   });
 })();
+
+  function openDrawer_services() {
+    document.getElementById('menu_services').classList.add('open');
+    document.getElementById('overlay_services').classList.add('open');
+    document.getElementById('ham_services').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer_services() {
+    document.getElementById('menu_services').classList.remove('open');
+    document.getElementById('overlay_services').classList.remove('open');
+    document.getElementById('ham_services').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDrawer_services(); });
 </script>
 
 </body>
