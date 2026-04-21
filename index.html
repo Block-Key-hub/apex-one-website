@@ -1147,12 +1147,11 @@
   </nav>
   <div class="mobile-menu" id="ownerMobileMenu">
     <button class="mobile-menu-close" onclick="document.getElementById('ownerHamburger').classList.remove('open');document.getElementById('ownerMobileMenu').classList.remove('open')">&times;</button>
+    <button class="mm-portal" onclick="document.getElementById('ownerHamburger').classList.remove('open');document.getElementById('ownerMobileMenu').classList.remove('open');selectPath('tenant')">Tenant Portal</button>
+    <div class="mm-divider"></div>
     <a href="./about.html">About</a>
     <a href="./services.html">Services</a>
     <a href="./contact.html">Contact</a>
-    <div class="mm-divider"></div>
-    <button class="mm-switch" onclick="document.getElementById('ownerHamburger').classList.remove('open');document.getElementById('ownerMobileMenu').classList.remove('open');selectPath('tenant')">Switch to Tenant Portal</button>
-    <button class="mm-portal">Owner Portal</button>
   </div>
 
   <!-- Hero Card -->
@@ -1415,13 +1414,12 @@
   </nav>
   <div class="mobile-menu" id="tenantMobileMenu">
     <button class="mobile-menu-close" onclick="document.getElementById('tenantHamburger').classList.remove('open');document.getElementById('tenantMobileMenu').classList.remove('open')">&times;</button>
+    <button class="mm-switch" onclick="document.getElementById('tenantHamburger').classList.remove('open');document.getElementById('tenantMobileMenu').classList.remove('open');selectPath('owner')">Owner Portal</button>
+    <div class="mm-divider"></div>
     <a href="./rentals.html">Available Units</a>
     <a href="./about.html">About</a>
     <a href="./services.html">Services</a>
     <a href="./contact.html">Contact</a>
-    <div class="mm-divider"></div>
-    <button class="mm-switch" onclick="document.getElementById('tenantHamburger').classList.remove('open');document.getElementById('tenantMobileMenu').classList.remove('open');selectPath('owner')">Switch to Owner Portal</button>
-    <button class="mm-portal">Tenant Portal</button>
   </div>
 
   <!-- Hero -->
