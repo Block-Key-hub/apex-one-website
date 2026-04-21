@@ -58,6 +58,28 @@
     }
     .nav-logo span { color: var(--gold); }
 
+    .nav-center {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .nav-center a { white-space: nowrap;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      background: transparent;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .nav-center a:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+    @media (max-width: 900px) { .nav-center { display: none; } }
+
     .nav-right {
       display: flex;
       align-items: center;
@@ -172,8 +194,12 @@
       border-bottom: 1px solid #e0dcd8;
       box-shadow: 0 4px 16px rgba(0,0,0,0.04);
       position: sticky;
-      top: 92px;
+      top: 93px; /* exact full nav height: 16px + 60px logo + 16px + 1px border */
       z-index: 100;
+      transition: top 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    nav.nav-scrolled ~ section.filter-bar {
+      top: 81px; /* compact nav height: 10px + 60px + 10px + 1px */
     }
 
     .filter-container {
@@ -280,7 +306,8 @@
     }
 
     @media (max-width: 768px) {
-      .filter-bar { padding: 24px; top: 84px; }
+      .filter-bar { padding: 24px; top: 89px; } /* exact mobile nav: 14px + 60px + 14px + 1px */
+      nav.nav-scrolled ~ section.filter-bar { top: 81px; }
       .filter-container {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -504,8 +531,7 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.3);
     }
 
-    .listing-card.is-leased .listing-buttons,
-    .listing-card.is-coming-soon .listing-buttons {
+    .listing-card.is-leased .listing-buttons {
       pointer-events: none;
       opacity: 0.4;
     }
@@ -887,9 +913,11 @@
 <!-- ════════════════════ STICKY NAV ════════════════════ -->
 <nav>
   <a href="./index.html" class="nav-logo" style="display:flex;align-items:center;gap:10px;text-decoration:none;"><span style="display:block;width:110px;height:60px;background:url('./piks/apex-one-logo-clean.png') center/contain no-repeat transparent; filter:invert(1);flex-shrink:0;"></span><span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.55);line-height:1.5;border-left:1px solid rgba(255,255,255,0.2);padding-left:10px;">Property<br>Management</span></a>
+  <div class="nav-center">
+    <a href="./about.html">About</a>
+    <a href="./contact.html">Contact</a>
+  </div>
   <div class="nav-right">
-    <a href="./about.html" class="pill-btn">About</a>
-    <a href="./contact.html" class="pill-btn">Contact</a>
     <button class="pill-btn" onclick="goToOwnerPortal()">Owner Portal</button>
     <button class="pill-btn pill-btn-gold" onclick="goToTenantPortal()">Tenant Portal</button>
   </div>
