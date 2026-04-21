@@ -21,9 +21,11 @@
       --badge-bg: #F0F4FF;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body { font-family: 'Inter', sans-serif; background: var(--light-bg); color: var(--body); line-height: 1.6; }
+    button, a { touch-action: manipulation; }
+    input, select, textarea { font-size: 16px !important; }
 
     h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
 
@@ -91,7 +93,7 @@
 
     /* HERO - Selection Mode */
     .hero-select {
-      min-height: 100vh;
+      min-height: 100svh;
       background: radial-gradient(ellipse at 50% 60%, rgba(212,160,23,0.15) 0%, var(--navy) 100%), var(--navy);
       display: flex;
       flex-direction: column;
@@ -904,7 +906,8 @@
       cursor: pointer;
       background: none;
       border: none;
-      padding: 6px;
+      padding: 10px;
+      margin-right: -10px;
       z-index: 1100;
     }
     .hamburger span {
@@ -914,26 +917,39 @@
       border-radius: 2px;
       transition: all 0.3s ease;
     }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     .owner-nav .hamburger span,
     #homepage nav .hamburger span { background: rgba(255,255,255,0.85); }
     #ownerApp nav .hamburger span { background: rgba(255,255,255,0.85); }
     #tenantApp nav .hamburger span { background: rgba(255,255,255,0.85); }
     #homepage nav .hamburger span { background: var(--body); }
 
-    /* ─── MOBILE MENU OVERLAY ─── */
+    /* ─── MOBILE MENU DRAWER ─── */
     .mobile-menu {
       display: none;
       position: fixed;
-      inset: 0;
+      top: 0; right: 0; bottom: 0;
+      width: 280px;
+      max-width: 85vw;
       background: var(--navy);
       z-index: 1050;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 40px 24px;
+      align-items: stretch;
+      justify-content: flex-start;
+      padding: 80px 0 max(40px, env(safe-area-inset-bottom, 40px));
+      overflow-y: auto;
+      box-shadow: -4px 0 32px rgba(0,0,0,0.5);
     }
-    .mobile-menu.open { display: flex; }
+    .mobile-menu.open {
+      display: flex;
+      animation: mmSlideIn 0.32s cubic-bezier(0.4,0,0.2,1) both;
+    }
+    @keyframes mmSlideIn {
+      from { transform: translateX(100%); }
+      to   { transform: translateX(0); }
+    }
     .mobile-menu-close {
       position: absolute;
       top: 20px;
@@ -941,40 +957,47 @@
       background: none;
       border: none;
       color: rgba(255,255,255,0.7);
-      font-size: 32px;
+      font-size: 28px;
       cursor: pointer;
       line-height: 1;
       padding: 8px;
+      touch-action: manipulation;
     }
     .mobile-menu a,
     .mobile-menu .mm-btn {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 22px;
+      font-size: 17px;
       font-weight: 700;
       color: rgba(255,255,255,0.85);
       text-decoration: none;
       background: none;
       border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       cursor: pointer;
-      padding: 12px 0;
+      padding: 16px 24px;
       letter-spacing: -0.01em;
-      transition: color 0.2s;
-      text-align: center;
+      transition: color 0.2s, background 0.2s;
+      text-align: left;
+      width: 100%;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
     }
     .mobile-menu a:hover,
-    .mobile-menu .mm-btn:hover { color: var(--gold); }
+    .mobile-menu .mm-btn:hover { color: var(--gold); background: rgba(255,255,255,0.04); }
+    .mobile-menu a.active { color: var(--gold); }
     .mobile-menu .mm-divider {
-      width: 40px;
       height: 1px;
-      background: rgba(255,255,255,0.15);
-      margin: 8px 0;
+      background: rgba(255,255,255,0.1);
+      margin: 12px 24px;
+      width: calc(100% - 48px);
     }
     .mobile-menu .mm-switch {
-      margin-top: 16px;
-      padding: 12px 28px;
+      margin: 12px 24px 4px;
+      padding: 13px 20px;
       border-radius: 100px;
       border: 1.5px solid rgba(255,255,255,0.3);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       font-family: 'Inter', sans-serif;
       letter-spacing: 0.06em;
@@ -982,13 +1005,15 @@
       color: rgba(255,255,255,0.7);
       background: none;
       cursor: pointer;
+      min-height: 44px;
+      width: calc(100% - 48px);
     }
     .mobile-menu .mm-portal {
-      margin-top: 8px;
-      padding: 12px 28px;
+      margin: 6px 24px 0;
+      padding: 13px 20px;
       border-radius: 100px;
       border: none;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       font-family: 'Inter', sans-serif;
       letter-spacing: 0.06em;
@@ -996,13 +1021,22 @@
       color: var(--navy);
       background: var(--gold);
       cursor: pointer;
+      min-height: 44px;
+      width: calc(100% - 48px);
+    }
+    /* ─── REDUCED MOTION ─── */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      body { animation: none !important; }
+      .mobile-menu.open { animation: none; }
     }
 
     /* ─── MOBILE BREAKPOINT ─── */
     @media (max-width: 768px) {
       .nav-right { display: none; }
-      .hamburger { display: flex; position: fixed; right: 20px; top: 18px; z-index: 1101; }
+      .hamburger { display: flex; position: fixed; right: 16px; top: 16px; z-index: 1101; }
       nav { justify-content: center !important; }
+      footer { padding-bottom: max(28px, env(safe-area-inset-bottom, 28px)); }
 
       /* Sections */
       .owner-section { padding: 60px 24px; }
@@ -1107,17 +1141,17 @@
       <button class="pill-btn" onclick="selectPath('tenant')">Switch to Tenant Portal</button>
       <button class="pill-btn pill-btn-gold">Owner Portal</button>
     </div>
-    <button class="hamburger" onclick="document.getElementById('ownerMobileMenu').classList.add('open')" aria-label="Open menu">
+    <button class="hamburger" id="ownerHamburger" onclick="this.classList.add('open');document.getElementById('ownerMobileMenu').classList.add('open')" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
   <div class="mobile-menu" id="ownerMobileMenu">
-    <button class="mobile-menu-close" onclick="document.getElementById('ownerMobileMenu').classList.remove('open')">&times;</button>
+    <button class="mobile-menu-close" onclick="document.getElementById('ownerHamburger').classList.remove('open');document.getElementById('ownerMobileMenu').classList.remove('open')">&times;</button>
     <a href="./about.html">About</a>
     <a href="./services.html">Services</a>
     <a href="./contact.html">Contact</a>
     <div class="mm-divider"></div>
-    <button class="mm-switch" onclick="document.getElementById('ownerMobileMenu').classList.remove('open');selectPath('tenant')">Switch to Tenant Portal</button>
+    <button class="mm-switch" onclick="document.getElementById('ownerHamburger').classList.remove('open');document.getElementById('ownerMobileMenu').classList.remove('open');selectPath('tenant')">Switch to Tenant Portal</button>
     <button class="mm-portal">Owner Portal</button>
   </div>
 
@@ -1375,18 +1409,18 @@
       <button class="pill-btn" onclick="selectPath('owner')">Switch to Owner Portal</button>
       <button class="pill-btn pill-btn-gold">Tenant Portal</button>
     </div>
-    <button class="hamburger" onclick="document.getElementById('tenantMobileMenu').classList.add('open')" aria-label="Open menu">
+    <button class="hamburger" id="tenantHamburger" onclick="this.classList.add('open');document.getElementById('tenantMobileMenu').classList.add('open')" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
   <div class="mobile-menu" id="tenantMobileMenu">
-    <button class="mobile-menu-close" onclick="document.getElementById('tenantMobileMenu').classList.remove('open')">&times;</button>
+    <button class="mobile-menu-close" onclick="document.getElementById('tenantHamburger').classList.remove('open');document.getElementById('tenantMobileMenu').classList.remove('open')">&times;</button>
     <a href="./rentals.html">Available Units</a>
     <a href="./about.html">About</a>
     <a href="./services.html">Services</a>
     <a href="./contact.html">Contact</a>
     <div class="mm-divider"></div>
-    <button class="mm-switch" onclick="document.getElementById('tenantMobileMenu').classList.remove('open');selectPath('owner')">Switch to Owner Portal</button>
+    <button class="mm-switch" onclick="document.getElementById('tenantHamburger').classList.remove('open');document.getElementById('tenantMobileMenu').classList.remove('open');selectPath('owner')">Switch to Owner Portal</button>
     <button class="mm-portal">Tenant Portal</button>
   </div>
 
